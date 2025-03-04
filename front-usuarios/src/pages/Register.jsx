@@ -17,7 +17,7 @@ const Register = () => {
                     <label htmlFor="password" className="form__label">Password:</label>
                     <input type="password" name="password" id="password" className="form__input"/>
                 </div>   
-                <button className="form__submit-btn">REGISTER</button> 
+                <button className="regular-bnt">REGISTER</button> 
             </form>
         </section>
     )

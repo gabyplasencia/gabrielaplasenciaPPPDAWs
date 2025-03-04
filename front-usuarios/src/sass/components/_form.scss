@@ -1,0 +1,34 @@
+@use '../globals' as g;
+
+.form {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 95dvw;
+    @include g.media(g.$tablet){
+        min-width: 30rem;
+    }
+
+    &__title {
+        @include g.modal-title;
+    }
+
+    &__field-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;                                                                                            
+    }
+
+    &__label {
+        color: var(--white);
+        font-size: var(--fz-xs);
+    }
+
+    &__input {
+        padding: 0.3rem 0.5rem;
+        border: 1px solid var(--black);
+    }
+}
