@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=McLaren&display=swap');
+
+$desktop: 1200px;
+$tablet: 760px;
+$mobile: 420px;
+
+:root {
+    // colors
+    --white: rgb(255, 255, 255);
+    --black: rgb(0, 0, 0);
+    --pale-blue: rgb(198, 235, 255);
+    --blue: rgb(9, 148, 255);
+    --off-white: rgb(254, 255, 224);
+    --pale-yellow: rgb(254, 255, 186);
+    --light-yellow: rgb(253, 255, 108);
+    --yellow: rgb(240, 236, 0);
+    --dark-yellow: rgb(150, 147, 0);
+    --pale-red: rgb(255, 200, 200);
+    --red: rgb(255, 0, 4);
+    --dark-red: rgb(138, 0, 0);
+    --bar-red: rgb(255, 114, 116);
+    --pale-green: rgb(198, 255, 196);
+    --green: rgb(14, 204, 0);
+    --dark-green: rgb(0, 100, 8);
+    --bar-green: #5FDE6A;
+
+    // Fonts
+    --ff-mclaren: "McLaren", sans-serif;
+    --fz-xs: 1.5rem;
+    --fz-s: 2rem;
+    --fz-m: 3rem;
+    --fz-l: 4rem;
+    --fz-xl: 6rem;
+}
