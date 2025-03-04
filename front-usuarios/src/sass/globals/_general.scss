@@ -9,3 +9,28 @@ body {
         background-image: url('/backgroung/desktop-flags-bg.png');
     }
 }
+
+#root {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
+
+.logo {
+    position: fixed;
+    top: 0.4rem;
+    left: 0.4rem;
+    height: 3rem;
+    @include mixin.media(root.$desktop){
+        top: 0.6rem;
+        left: 1rem;
+        height: 15vh;
+    }
+    object-fit: contain;
+}

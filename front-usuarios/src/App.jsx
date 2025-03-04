@@ -6,22 +6,20 @@ import Register from "./pages/Register";
 function App() {
 
   return (
-    <>
-      <h1>LOGO</h1>
-      <span>AVATAR</span>
+    <div className="container">
+      <img src="/logo.svg" alt="logo mundiquiz" aria-hidden="true" className="logo"/>
       <Suspense fallback="loading">
         <BrowserRouter>
-            
-            <div role="main">
+            <main>
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>         
-            </div>
+            </main>
             
         </BrowserRouter>
     </Suspense>
-    </>
+    </div>
   )
 }
 
