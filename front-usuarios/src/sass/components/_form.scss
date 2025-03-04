@@ -30,5 +30,10 @@
     &__input {
         padding: 0.3rem 0.5rem;
         border: 1px solid var(--black);
+        background-color: var(--off-white);
+    }
+
+    &__input:focus {
+        outline-style: solid;
     }
 }

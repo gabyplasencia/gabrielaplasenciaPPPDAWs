@@ -1,0 +1,23 @@
+.regular-bnt {
+    font-size: var(--fz-s);
+    padding: 0.2rem 1.5rem;
+    border-radius: 0.4rem;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+    border: 3px solid var(--black);
+    cursor: pointer;
+    background-image: linear-gradient(90deg, var(--dark-yellow) 50%, var(--light-yellow) 50%);
+    background-size: 200%;
+    background-position: 100%;
+    transition: background-position 380ms ease-out;
+    -webkit-transition: background-position 380ms ease-out;
+    -moz-transition: background-position 380ms ease-out;
+    -ms-transition: background-position 380ms ease-out;
+    -o-transition: background-position 380ms ease-out;
+}
+
+.regular-bnt:hover {
+    background-position: 0%;
+}
