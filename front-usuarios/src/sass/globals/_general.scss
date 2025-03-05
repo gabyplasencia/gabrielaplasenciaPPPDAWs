@@ -10,6 +10,16 @@ body {
     }
 }
 
+.world-bg {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    display: none;
+    @include mixin.media(root.$desktop){
+        display: block;
+    }
+}
+
 #root {
     height: 100%;
     width: 100%;

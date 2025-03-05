@@ -16,9 +16,9 @@ function App() {
                     <Route path="/register" element={<Register />} />
                 </Routes>         
             </main>
-            
         </BrowserRouter>
-    </Suspense>
+      </Suspense>
+      <img src="/backgroung/world-bg.svg" alt="a world draw" aria-hidden="true" className="world-bg"/>
     </div>
   )
 }
