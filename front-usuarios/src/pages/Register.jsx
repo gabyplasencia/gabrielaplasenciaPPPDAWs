@@ -3,7 +3,7 @@ const Register = () => {
     
     return (
         <section className="main-wrapper">
-            <form action="/" className="form">
+            <form action="/" className="form" id="register">
                 <h1 className="form__title">REGISTER</h1>
                 <div className="form__field-wrapper">
                     <label htmlFor="email" className="form__label">Email:</label>
