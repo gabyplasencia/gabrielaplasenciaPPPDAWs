@@ -13,6 +13,10 @@ const Login = () => {
                     <input type="password" name="password" id="password" className="form__input" required/>
                 </div>   
                 <button className="regular-bnt">LOGIN</button> 
+                <div className="login-register__wrapper">
+                    <p className="login-register__text">Not register yet?</p>
+                    <a className="login-register__link" href="/register">REGISTER</a>
+                </div>
             </form>
         </section>
     )
