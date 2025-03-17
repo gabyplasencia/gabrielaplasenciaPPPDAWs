@@ -1,7 +1,7 @@
 const Login = () => {
     
     return (
-        <section className="main-wrapper">
+        <main className="main-wrapper">
             <form action="/" className="form" id="login">
                 <h1 className="form__title">LOGIN</h1>
                 <div className="form__field-wrapper">
@@ -18,7 +18,7 @@ const Login = () => {
                     <a className="login-register__link" href="/register">REGISTER</a>
                 </div>
             </form>
-        </section>
+        </main>
     )
 }
 

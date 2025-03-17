@@ -38,6 +38,9 @@ body {
     left: 0.4rem;
     height: 3rem;
     object-fit: contain;
+    @include mixin.media(root.$tablet){
+        height: 6rem;
+    }
     @include mixin.media(root.$desktop){
         top: 0.6rem;
         left: 1rem;

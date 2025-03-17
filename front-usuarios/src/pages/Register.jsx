@@ -2,7 +2,7 @@
 const Register = () => {
     
     return (
-        <section className="main-wrapper">
+        <main className="main-wrapper">
             <form action="/" className="form" id="register">
                 <h1 className="form__title">REGISTER</h1>
                 <div className="form__field-wrapper">
@@ -19,7 +19,7 @@ const Register = () => {
                 </div>   
                 <button className="regular-bnt">REGISTER</button> 
             </form>
-        </section>
+        </main>
     )
 }
 

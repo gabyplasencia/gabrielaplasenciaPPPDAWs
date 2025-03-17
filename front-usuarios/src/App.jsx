@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Mode from "./pages/Mode";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/mode" element={<Mode />} />
                 </Routes>         
             </main>
         </BrowserRouter>

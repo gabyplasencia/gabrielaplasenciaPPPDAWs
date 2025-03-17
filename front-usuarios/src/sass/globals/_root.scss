@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=McLaren&display=swap');
 
 $desktop: 1200px;
-$tablet: 760px;
+$tablet: 769px;
 $mobile: 420px;
 
 :root {
@@ -29,6 +29,10 @@ $mobile: 420px;
     --fz-xs: 1.1rem;
     --fz-s: 1.5rem;
     --fz-m: 1.8rem;
-    --fz-l: 2.5rem;
-    --fz-xl: 3rem;
+    --fz-l: 3.2rem;
+    --fz-xl: 4rem;
+
+    //menu
+    --menu-bg-color: "";
+    --menu-border-color: "";
 }
