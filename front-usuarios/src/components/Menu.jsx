@@ -11,7 +11,7 @@ const Menu = () => {
         <section className="menu">
             <button className="menu__btn" aria-label="open menu">
             {/* cambiar el src a uno que coincida con el avatar del ususario */}
-                <img src="/avatars/kitty.png" alt="profile photo" aria-hidden="true"/>
+                <img src="/assets/avatars/kitty.png" alt="profile photo" aria-hidden="true"/>
             </button>
             <h4>MENU</h4>
         </section>

@@ -4,9 +4,9 @@
 body {
     font-family: var(--ff-mclaren);
     background-color: var(--pale-blue);
-    background-image: url('/backgroung/phone-flags-bg.png');
+    background-image: url('/assets/backgroung/phone-flags-bg.png');
     @include mixin.media(root.$desktop){
-        background-image: url('/backgroung/desktop-flags-bg.png');
+        background-image: url('/assets/backgroung/desktop-flags-bg.png');
     }
 }
 

@@ -1,10 +1,10 @@
 import Menu from "../components/Menu";
 
-const Mode = () => {
+const Category = () => {
     return (
         <>
         <Menu />
-        <main className="mode-wrapper">
+        <main className="category">
             <a href="/flags" className="game-btn">FLAGS</a>
             <a href="/capitals" className="game-btn">CAPITALS</a>
         </main>
@@ -12,4 +12,4 @@ const Mode = () => {
     )
 }
 
-export default Mode
+export default Category

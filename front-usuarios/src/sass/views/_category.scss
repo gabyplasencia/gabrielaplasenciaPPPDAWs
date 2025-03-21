@@ -1,0 +1,16 @@
+@use '../globals' as g;
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    min-width: 95dvw;
+    @include g.media(g.$tablet){
+        flex-direction: row;
+        min-width: unset;
+        gap: 2.5rem;
+    }
+    @include g.media(g.$desktop){
+        gap: 3rem;
+    }
+}
