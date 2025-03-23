@@ -13,6 +13,6 @@
 
 @mixin modal-title{
     font-size: var(--fz-m);
-    -webkit-text-stroke: 0.2px var(--black);
+    -webkit-text-stroke: 1px var(--black);
     color: var(--white);
 }

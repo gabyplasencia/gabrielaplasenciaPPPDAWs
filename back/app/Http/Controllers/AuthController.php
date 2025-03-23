@@ -36,7 +36,7 @@ class AuthController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'avatar'   => $request->avatar ?? 'default.svg',
+            'avatar'   => $request->avatar ?? 'kitty.png',
         ]);
     
         // Generar enlace de verificación

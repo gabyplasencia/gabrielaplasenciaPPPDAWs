@@ -1,10 +1,8 @@
-import Menu from "../components/Menu";
-import Mode from "../components/Mode";
+import Mode from "../../components/Mode";
 
 const Capitals = () => {
     return (
         <>
-        <Menu />
         <Mode />
         </>
     )

@@ -1,7 +1,7 @@
 @use './mixins' as mixin;
 @use './root' as root;
 
-body {
+.user {
     font-family: var(--ff-mclaren);
     background-color: var(--pale-blue);
     background-image: url('/assets/backgroung/phone-flags-bg.png');
@@ -47,3 +47,13 @@ body {
         height: 15vh;
     }
 }
+.error-message {
+    background-color: #ffdddd;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+  }
+  
