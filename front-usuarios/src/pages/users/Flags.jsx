@@ -1,16 +1,34 @@
-import FlagsGame from "../../components/FlagsGame";
+import FlagsInfinity from "../../components/FlagsInfinity";
 import { useState } from "react";
-import FlagsGame2 from "../../components/FlagsGame2";
+import FlagsTurbo from "../../components/FlagsTurbo";
+import Menu from "../../components/Menu";
 
 const Flags = () => {
     const [game, setGame] = useState(0); // Default to 0, meaning no game is rendered
+    const [showMenu, setShowMenu] = useState(true); // Control visibility of the menu
+
+    const handleStartGame = (mode) => {
+        setGame(mode);
+        setShowMenu(false); // Hide the menu when a game starts
+        const modeWrapper = document.querySelector('.mode');
+        modeWrapper.style.display = 'none';
+    };
 
     return (
-        <>
-            <button onClick={() => setGame(1)}>Show FlagsGame</button>
-            <button onClick={() => setGame(2)}>Show FlagsGame2</button>
-            {game === 1 && <FlagsGame />}
-            {game === 2 && <FlagsGame2 />}
+        <>  
+            {showMenu && <Menu />}
+            <div className="mode">
+                <div className="mode__btn-wrapper">
+                    <button className="game-btn mode__btn mode__btn-infinity" onClick={() => handleStartGame(1)}>INFINITY</button>
+                    <img src="/assets/icons/infinity-icon.svg" alt="button icon" aria-hidden="true" className="mode__icon"/>
+                </div>
+                <div className="mode__btn-wrapper">
+                    <button className="game-btn mode__btn mode__btn-turbo" onClick={() => handleStartGame(2)}>TURBO</button>       
+                    <img src="/assets/icons/clock-icon.svg" alt="button icon" aria-hidden="true" className="mode__icon"/>    
+                </div>
+            </div>
+            {game === 1 && <FlagsInfinity />}
+            {game === 2 && <FlagsTurbo />}
         </>
     );
 }
