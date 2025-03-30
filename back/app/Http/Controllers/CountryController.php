@@ -29,6 +29,26 @@ class CountryController extends Controller
     {
         return Country::select('id', 'name', 'capital', 'iso2', 'flag')->orderBy('name')->get();
     }
+
+    public function update(Request $request, $id)
+{
+    $country = Country::findOrFail($id);
+    
+    $validated = $request->validate([
+        'capital' => 'nullable|string',
+        'iso2'    => 'required|string|size:2|unique:countries,iso2,'.$country->id,
+    ]);
+
+    $flag = 'https://flagcdn.com/' . strtolower($validated['iso2']) . '.svg';
+
+    $country->update([
+        'capital' => $validated['capital'],
+        'iso2'    => strtoupper($validated['iso2']),
+        'flag'    => $flag
+    ]);
+
+    return response()->json(['message' => 'País actualizado correctamente', 'country' => $country]);
+}
     
     public function store(Request $request)
     {

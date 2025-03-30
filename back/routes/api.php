@@ -30,5 +30,6 @@ Route::middleware('auth:api')->post('/modify-avatar', [AvatarController::class, 
 Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::get('/countries', [CountryController::class, 'index']);
     Route::post('/countries', [CountryController::class, 'store']);
+    Route::put('//countries/{id}', [CountryController::class, 'update']);
     Route::delete('/countries/{id}', [CountryController::class, 'destroy']);
 });

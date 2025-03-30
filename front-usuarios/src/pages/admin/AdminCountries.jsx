@@ -8,7 +8,40 @@ export default function AdminCountries() {
   const [form, setForm] = useState({ name: "", capital: "", iso2: "" });
   const [searchTerm, setSearchTerm] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
+  const [editingCountry, setEditingCountry] = useState(null);
+  const [editForm, setEditForm] = useState({ capital: "", iso2: "" });
 
+  const handleEditClick = (country) => {
+    setEditingCountry(country);
+    setEditForm({
+      capital: country.capital || "",
+      iso2: country.iso2
+    });
+  };
+
+  const handleEditChange = (e) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await api.put(`/countries/${editingCountry.id}`, editForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEditingCountry(null);
+      handleSearch(); // Refresh the current search
+    } catch (err) {
+      alert("Error al actualizar país.");
+      console.error(err);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCountry(null);
+  };
   const fetchCountries = async (search = "") => {
     try {
       const res = await api.get(`/countries`, {
@@ -111,9 +144,52 @@ export default function AdminCountries() {
           {countries.length > 0 ? (
             countries.map((c) => (
               <li key={c.id} style={styles.listItem}>
-                <img src={c.flag} alt={c.name} width="24" style={styles.flag} />
-                <span>{c.name} ({c.iso2}) - {c.capital}</span>
-                <button onClick={() => handleDelete(c.id)} style={styles.deleteButton}>Eliminar</button>
+                {editingCountry?.id === c.id ? (
+                  <form onSubmit={handleUpdate} style={styles.editForm}>
+                    <span>{c.name}</span>
+                    <input
+                      name="capital"
+                      placeholder="Capital"
+                      value={editForm.capital}
+                      onChange={handleEditChange}
+                      style={styles.editInput}
+                    />
+                    <input
+                      name="iso2"
+                      placeholder="ISO2"
+                      value={editForm.iso2}
+                      onChange={handleEditChange}
+                      style={styles.editInput}
+                    />
+                    <button type="submit" style={styles.saveButton}>Guardar</button>
+                    <button 
+                      type="button" 
+                      onClick={handleCancelEdit}
+                      style={styles.cancelButton}
+                    >
+                      Cancelar
+                    </button>
+                  </form>
+                ) : (
+                  <>
+                    <img src={c.flag} alt={c.name} width="24" style={styles.flag} />
+                    <span>{c.name} ({c.iso2}) - {c.capital}</span>
+                    <div style={styles.buttonGroup}>
+                      <button 
+                        onClick={() => handleEditClick(c)} 
+                        style={styles.editButton}
+                      >
+                        Modificar
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(c.id)} 
+                        style={styles.deleteButton}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  </>
+                )}
               </li>
             ))
           ) : (
