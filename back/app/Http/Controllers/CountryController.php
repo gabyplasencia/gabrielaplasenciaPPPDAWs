@@ -7,14 +7,29 @@ use App\Models\Country;
 
 class CountryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Country::select('id', 'name', 'capital', 'iso2', 'flag')->orderBy('name')->paginate(10);
+        $query = Country::query();
+        
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('iso2', 'like', "%{$search}%")
+                  ->orWhere('capital', 'like', "%{$search}%");
+            });
+        }
+
+        return $query->select('id', 'name', 'capital', 'iso2', 'flag')
+                    ->orderBy('name')
+                    ->get();
     }
+
     public function countries()
     {
         return Country::select('id', 'name', 'capital', 'iso2', 'flag')->orderBy('name')->get();
     }
+    
     public function store(Request $request)
     {
         $validated = $request->validate([

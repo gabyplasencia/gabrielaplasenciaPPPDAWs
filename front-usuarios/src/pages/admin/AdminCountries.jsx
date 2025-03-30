@@ -6,27 +6,41 @@ export default function AdminCountries() {
   const { token } = useAuth();
   const [countries, setCountries] = useState([]);
   const [form, setForm] = useState({ name: "", capital: "", iso2: "" });
-  const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
 
-  const fetchCountries = async (currentPage = 1) => {
+  const fetchCountries = async (search = "") => {
     try {
-      const res = await api.get(`/countries?page=${currentPage}`, {
+      const res = await api.get(`/countries`, {
+        params: { search },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setCountries(res.data.data);
-      setLastPage(res.data.last_page);
-      setPage(currentPage);
+      setCountries(res.data);
+      setHasSearched(true);
     } catch (err) {
       console.error("Error al obtener países", err);
     }
   };
 
+  const handleSearch = () => {
+    if (searchTerm.trim() !== "") {
+      fetchCountries(searchTerm);
+    } else {
+      setCountries([]);
+      setHasSearched(false);
+    }
+  };
+
   useEffect(() => {
-    fetchCountries();
-  }, []);
+    // Add a small delay to avoid making too many requests while typing
+    const timer = setTimeout(() => {
+      handleSearch();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   const handleDelete = async (id) => {
     if (confirm("¿Seguro que deseas eliminar este país?")) {
@@ -35,7 +49,7 @@ export default function AdminCountries() {
           Authorization: `Bearer ${token}`,
         },
       });
-      fetchCountries(page);
+      handleSearch(); // Refresh with current search
     }
   };
 
@@ -52,45 +66,63 @@ export default function AdminCountries() {
         },
       });
       setForm({ name: "", capital: "", iso2: "" });
-      fetchCountries(page);
+      handleSearch(); // Refresh with current search
     } catch (err) {
       alert("Error al agregar país.");
       console.error(err);
     }
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= lastPage) {
-      fetchCountries(newPage);
-    }
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Admin - Países</h2>
+      <h1 style={styles.heading}>Administrar Paises</h1>
+
+      <div style={styles.searchContainer}>
+        <input
+          type="text"
+          placeholder="Buscar país..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          style={styles.searchInput}
+        />
+        <button 
+          onClick={handleSearch}
+          style={styles.searchButton}
+          disabled={!searchTerm.trim()}
+        >
+          Buscar
+        </button>
+      </div>
 
       <form onSubmit={handleAdd} style={styles.form}>
+      <h2>AGREGAR PAIS</h2>
         <input name="name" placeholder="Nombre" value={form.name} onChange={handleChange} style={styles.input} />
         <input name="capital" placeholder="Capital" value={form.capital} onChange={handleChange} style={styles.input} />
         <input name="iso2" placeholder="ISO2 (ej. AR)" value={form.iso2} onChange={handleChange} style={styles.input} />
         <button type="submit" style={styles.button}>Agregar país</button>
       </form>
 
-      <ul style={styles.list}>
-        {countries.map((c) => (
-          <li key={c.id} style={styles.listItem}>
-            <img src={c.flag} alt={c.name} width="24" style={styles.flag} />
-            <span>{c.name} ({c.iso2}) - {c.capital}</span>
-            <button onClick={() => handleDelete(c.id)} style={styles.deleteButton}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
-
-      <div style={styles.pagination}>
-        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>← Anterior</button>
-        <span>Página {page} de {lastPage}</span>
-        <button onClick={() => handlePageChange(page + 1)} disabled={page === lastPage}>Siguiente →</button>
-      </div>
+      {hasSearched ? (
+        <ul style={styles.list}>
+          {countries.length > 0 ? (
+            countries.map((c) => (
+              <li key={c.id} style={styles.listItem}>
+                <img src={c.flag} alt={c.name} width="24" style={styles.flag} />
+                <span>{c.name} ({c.iso2}) - {c.capital}</span>
+                <button onClick={() => handleDelete(c.id)} style={styles.deleteButton}>Eliminar</button>
+              </li>
+            ))
+          ) : (
+            <p style={styles.noResults}>No se encontraron países</p>
+          )}
+        </ul>
+      ) : (
+        <p style={styles.initialMessage}>Ingrese un término de búsqueda para ver países</p>
+      )}
     </div>
   );
 }
@@ -125,7 +157,9 @@ const styles = {
   },
   list: {
     listStyle: "none",
-    padding: 0
+    padding: 0,
+    height: "10rem",
+    overflowY: "scroll",
   },
   listItem: {
     display: "flex",
