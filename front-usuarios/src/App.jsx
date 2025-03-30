@@ -1,5 +1,6 @@
-import { Suspense } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { Routes, Route} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import LoginAdmin from "./pages/auth/LoginAdmin";
 import Register from "./pages/auth/Register";
@@ -14,66 +15,75 @@ import { useAuth } from "./context/AuthContext";
 import AdminCountries from "./pages/admin/AdminCountries";
 
 function App() {
-  const {user} = useAuth();
+  const { user, setUser } = useAuth();
+  const location = useLocation();
+
+  const isAdmin = user?.is_admin || location.pathname === "/login-admin";
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setUser(null);
+      localStorage.removeItem("user");
+    }
+  }, [location.pathname, setUser]);
+
   return (
-    <div className={`container ${user?.is_admin ? "admin" : "user"}`}> 
-      {!user?.is_admin && (
+    <div className={`container ${isAdmin ? "admin" : "user"}`}> 
+      {!isAdmin && (
         <>
           <img src="/assets/logo.svg" alt="logo mundiquiz" aria-hidden="true" className="logo"/>
           <img src="/assets/backgroung/world-bg.svg" alt="a world draw" aria-hidden="true" className="world-bg"/>
         </>
       )}
       <Suspense fallback="loading">
-        <BrowserRouter>
-            <main>
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/login-admin" element={<LoginAdmin />} />
-                <Route path="/register" element={<Register />} />
-                <Route
-                  path="/category"
-                  element={
-                    <PrivateRoute>
-                      <Category />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/flags"
-                  element={
-                    <PrivateRoute>
-                      <Flags />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/capitals"
-                  element={
-                    <PrivateRoute>
-                      <Capitals />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/admin"
-                  element={
-                    <AdminRoute>
-                      <AdminDashboard />
-                    </AdminRoute>
-                  }
-                />
-                <Route
-                  path="/countries"
-                  element={
-                    <AdminRoute>
-                      <AdminCountries/>
-                    </AdminRoute>
-                  }
-                />
-                <Route path="/logout" element={<Logout />} />      
-              </Routes>
-            </main>
-        </BrowserRouter>
+        <main>
+          <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/login-admin" element={<LoginAdmin />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/category"
+                element={
+                  <PrivateRoute>
+                    <Category />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/flags"
+                element={
+                  <PrivateRoute>
+                    <Flags />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/capitals"
+                element={
+                  <PrivateRoute>
+                    <Capitals />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/countries"
+                element={
+                  <AdminRoute>
+                    <AdminCountries/>
+                  </AdminRoute>
+                }
+              />
+              <Route path="/logout" element={<Logout />} />      
+            </Routes>
+        </main>
       </Suspense>
     </div>
   )
