@@ -40,6 +40,7 @@ class CountryController extends Controller
     ]);
 
     $flag = 'https://flagcdn.com/' . strtolower($validated['iso2']) . '.svg';
+    $validated['capital'] = $validated['capital'] ?? 'none';
 
     $country->update([
         'capital' => $validated['capital'],
@@ -59,6 +60,7 @@ class CountryController extends Controller
         ]);
 
         $flag = 'https://flagcdn.com/' . strtolower($validated['iso2']) . '.svg';
+        $validated['capital'] = $validated['capital'] ?? 'none';
 
         $country = Country::create([
             'name'    => $validated['name'],
