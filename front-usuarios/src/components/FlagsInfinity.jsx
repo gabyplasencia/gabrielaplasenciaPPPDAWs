@@ -7,6 +7,10 @@ const FlagsInfinity = () => {
   const [countries, setCountries] = useState([]);
   const [currentCountry, setCurrentCountry] = useState(null);
   const [options, setOptions] = useState([]);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
   const [usedCountries, setUsedCountries] = useState([]);
     
     useEffect(() => {
@@ -72,17 +76,31 @@ const FlagsInfinity = () => {
 
     // Handle answer selection
     const handleAnswer = (selectedCountry) => {
+      setSelectedAnswer(selectedCountry.id);
+      
       if (selectedCountry.id === currentCountry.id) {
-          alert("Correct! Moving to next question.");
-          generateRound();
+        setIsCorrect(true);
+        setCorrectCount(prev => prev + 1); // increment correct answers
       } else {
-          alert(`Wrong! The correct answer was ${currentCountry.name}`);
-          generateRound();
+        setIsCorrect(false);
+        setIncorrectCount(prev => prev + 1); // increment incorrect answers
       }
-  };
+      
+      setTimeout(() => {
+        setIsCorrect(null);
+        setSelectedAnswer(null);
+        generateRound();
+      }, 1000);
+      
+    };
 
     return (
         <div className="main-wrapper game" id="flags-infinity">
+        <div className="scoreboard">
+  <p>✅ Correct: {correctCount}</p>
+  <p>❌ Incorrect: {incorrectCount}</p>
+</div>
+
             {currentCountry && (
                 <>
                     <h1 className="game__country">{currentCountry.name}</h1>
@@ -90,8 +108,16 @@ const FlagsInfinity = () => {
                         {options.map((country, index) => (
                             <div 
                                 key={index}
-                                className="game__answer"
-                                onClick={() => handleAnswer(country)}
+                                className={`game__answer ${
+                                selectedAnswer === country.id
+                                  ? isCorrect 
+                                    ? 'correct' 
+                                    : 'wrong'
+                                  : selectedAnswer && currentCountry.id === country.id 
+                                    ? 'correct' 
+                                    : ''
+                              }`}
+                              onClick={() => !selectedAnswer && handleAnswer(country)}
                                 style={{ height: 'fit-content', width: 'fit-content'}}
                             >
                                <img 

@@ -2,8 +2,16 @@
 
 .game {
     position: relative;
-    padding: 1.5rem;
+    padding: 0.5rem;
     text-align: center;
+    width: 100dvw;
+    @include g.media(g.$tablet){
+        padding: 1.5rem;
+        width: 85dvw;
+    }
+    @include g.media(g.$desktop){
+        width: 40rem;
+    }
 
     &__icon {
         height: 3rem;
@@ -19,6 +27,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
         margin-top: 1rem;
+        justify-items: center;
         @include g.media(g.$tablet){
             grid-template-columns: 1fr 1fr;
         }
@@ -41,29 +50,36 @@
         cursor: pointer;
     }
 
-    &__answer:hover {
-        border-color: var(--yellow);
-        color: var(--dark-yellow);
+    @media (hover: hover) {
+        &__answer:hover {
+            border-color: var(--yellow);
+            color: var(--dark-yellow);
+        }
     }
 
     &__answer.correct {
         border-color: var(--green);
         color: var(--dark-green);
-        box-shadow: inset 0  100px rgba(88, 244, 88, 0.336);
+        box-shadow: inset 0 500px rgb(0, 255, 0);
+    }
+
+    &__answer.correct > .game__answer-flag,
+    &__answer.wrong > .game__answer-flag {
+        opacity: 0.7;
     }
 
     &__answer.wrong {
         border-color: var(--red);
         color: var(--dark-red);
-        box-shadow: inset 0  100px rgba(244, 88, 88, 0.336);
+        box-shadow: inset 0  500px rgb(255, 0, 0);
     }
 
     &__answer-flag {
-        max-width: 7rem;
+        max-width: 9.5rem;
         height: 5rem;
         object-fit: cover;
         @include g.media(g.$tablet){
-            height: 10rem;
+            height: 9rem;
             max-width: 16rem;
         }
     }
