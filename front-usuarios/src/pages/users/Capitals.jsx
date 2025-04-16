@@ -20,11 +20,11 @@ const Capitals = () => {
             <div className="mode">
                 <div className="mode__btn-wrapper">
                     <button className="game-btn mode__btn mode__btn-infinity" onClick={() => handleStartGame(1)}>INFINITY</button>
-                    <img src="/assets/icons/infinity-icon.svg" alt="button icon" aria-hidden="true" className="mode__icon"/>
+                    <img src="/assets/icons/infinity-icon.svg" alt="button icon" aria-hidden="true" className="mode__icon mode__icon-infinity"/>
                 </div>
                 <div className="mode__btn-wrapper">
                     <button className="game-btn mode__btn mode__btn-turbo" onClick={() => handleStartGame(2)}>TURBO</button>       
-                    <img src="/assets/icons/clock-icon.svg" alt="button icon" aria-hidden="true" className="mode__icon"/>    
+                    <img src="/assets/icons/clock-icon.svg" alt="button icon" aria-hidden="true" className="mode__icon mode__icon-turbo"/>    
                 </div>
             </div>
             {game === 1 && <CapitalsInfinity />}

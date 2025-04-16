@@ -30,5 +30,21 @@
         -moz-transform: translate(35%, -40%);
         -ms-transform: translate(35%, -40%);
         -o-transform: translate(35%, -40%);
-}
+    }
+
+    &__icon-infinity {
+        height: 3rem;
+        object-fit: contain;
+        @include g.media(g.$tablet){
+            height: unset;
+        }
+    }
+
+    &__icon-turbo {
+        height: 4.5rem;
+        object-fit: contain;
+        @include g.media(g.$tablet){
+            height: unset;
+        }
+    }
 }

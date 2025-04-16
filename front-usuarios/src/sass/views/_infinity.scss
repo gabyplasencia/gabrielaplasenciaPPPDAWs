@@ -13,11 +13,6 @@
         width: 40rem;
     }
 
-    &__icon {
-        height: 3rem;
-        object-fit: contain
-    }
-
     &__country {
         @include g.mode-game-country;
     }
