@@ -13,6 +13,7 @@ import AdminRoute from "./pages/admin/AdminRoute";
 import Logout from "./components/Logout";
 import { useAuth } from "./context/AuthContext";
 import AdminCountries from "./pages/admin/AdminCountries";
+import Results from "./pages/users/Results";
 
 function App() {
   const { user, setUser } = useAuth();
@@ -62,6 +63,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Capitals />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/results"
+                element={
+                  <PrivateRoute>
+                    <Results />
                   </PrivateRoute>
                 }
               />
