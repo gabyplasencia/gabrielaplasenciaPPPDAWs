@@ -97,9 +97,9 @@ const FlagsInfinity = () => {
     return (
         <div className="main-wrapper game" id="flags-infinity">
         <div className="scoreboard">
-  <p>✅ Correct: {correctCount}</p>
-  <p>❌ Incorrect: {incorrectCount}</p>
-</div>
+          <p>✅ Correct: {correctCount}</p>
+          <p>❌ Incorrect: {incorrectCount}</p>
+        </div>
 
             {currentCountry && (
                 <>

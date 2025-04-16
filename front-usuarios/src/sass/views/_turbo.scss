@@ -1,0 +1,10 @@
+@use '../globals' as g;
+
+.timebar {
+    height: 3rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(90deg, var(--bar-red) 50%, var(--bar-green) 50%);
+    background-size: 200%;
+    background-position: 100%;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 
@@ -12,6 +12,9 @@ const FlagsTurbo = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [usedCountries, setUsedCountries] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(60); // 60 seconds initial time
+  const timerRef = useRef(null);
+  const progressRef = useRef(null);
     
     useEffect(() => {
         const fetchCountries = async () => {
@@ -74,33 +77,59 @@ const FlagsTurbo = () => {
         }
     }, [countries, generateRound, currentCountry, usedCountries]);
 
-    // Handle answer selection
-    const handleAnswer = (selectedCountry) => {
-      setSelectedAnswer(selectedCountry.id);
-      
-      if (selectedCountry.id === currentCountry.id) {
-        setIsCorrect(true);
-        setCorrectCount(prev => prev + 1); // increment correct answers
-      } else {
-        setIsCorrect(false);
-        setIncorrectCount(prev => prev + 1); // increment incorrect answers
+    useEffect(() => {
+      if (timeLeft <= 0) {
+        // Game over logic
+        clearInterval(timerRef.current);
+        return;
       }
-      
+  
+      timerRef.current = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+  
+      return () => clearInterval(timerRef.current);
+    }, [timeLeft, correctCount, incorrectCount]);
+  
+    // Update progress bar
+    useEffect(() => {
+      if (progressRef.current) {
+        const percentage = (timeLeft / 60) * 100;
+        progressRef.current.style.backgroundPosition = `${percentage}%`;
+      }
+    }, [timeLeft]);
+
+    // Handle answer selection
+  const handleAnswer = (selectedCountry) => {
+    setSelectedAnswer(selectedCountry.id);
+    
+    if (selectedCountry.id === currentCountry.id) {
+      setIsCorrect(true);
+      setCorrectCount(prev => prev + 1);
+      setTimeLeft(prev => Math.min(60, prev + 1)); // Add 1 second, max 60
       setTimeout(() => {
         setIsCorrect(null);
         setSelectedAnswer(null);
         generateRound();
       }, 1000);
-      
-    };
+    } else {
+      setIsCorrect(false);
+      setIncorrectCount(prev => prev + 1);
+      setTimeout(() => {
+        setIsCorrect(null);
+        setSelectedAnswer(null);
+        generateRound();
+      }, 2000);
+    }
+  };
 
     return (
         <div className="main-wrapper game" id="flags-infinity">
-        {/* <div className="scoreboard">
-  <p>✅ Correct: {correctCount}</p>
-  <p>❌ Incorrect: {incorrectCount}</p>
-</div> */}
-
+            <div 
+              ref={progressRef}
+              className="timebar" 
+              style={{ '--time-left': `${(timeLeft / 60) * 100}%` }}>
+            </div>
             {currentCountry && (
                 <>
                     <h1 className="game__country">{currentCountry.name}</h1>
