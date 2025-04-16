@@ -15,6 +15,9 @@ const FlagsTurbo = () => {
   const [timeLeft, setTimeLeft] = useState(60); // 60 seconds initial time
   const timerRef = useRef(null);
   const progressRef = useRef(null);
+  const [showBonus, setShowBonus] = useState(false);
+  const [randomStyle, setRandomStyle] = useState({});
+  const bonusRef = useRef(null);
     
     useEffect(() => {
         const fetchCountries = async () => {
@@ -107,6 +110,18 @@ const FlagsTurbo = () => {
       setIsCorrect(true);
       setCorrectCount(prev => prev + 1);
       setTimeLeft(prev => Math.min(60, prev + 1)); // Add 1 second, max 60
+
+          // Generate random position and rotation
+      setRandomStyle({
+        right: `${4 + Math.random() * 4}rem`,  // Random between 4-8rem
+        top: `${0.5 + Math.random() * 1}rem`,   // Random between 0.5-1.5rem
+        transform: `rotate(${-15 + Math.random() * 30}deg)`, // Random between -15 to +15 degrees
+        opacity: 0 // Start invisible
+      });
+      
+      setShowBonus(true);
+      setTimeout(() => setShowBonus(false), 2000);
+
       setTimeout(() => {
         setIsCorrect(null);
         setSelectedAnswer(null);
@@ -129,6 +144,15 @@ const FlagsTurbo = () => {
               ref={progressRef}
               className="timebar" 
               style={{ '--time-left': `${(timeLeft / 60) * 100}%` }}>
+                {showBonus && (
+                  <span 
+                    ref={bonusRef}
+                    className={`plus-second ${showBonus ? 'animation' : ''}`}
+                    style={randomStyle}
+                  >
+                    +1 sec
+                  </span>
+                )}
             </div>
             {currentCountry && (
                 <>

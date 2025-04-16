@@ -1,6 +1,7 @@
 @use '../globals' as g;
 
 .timebar {
+    position: relative;
     height: 3rem;
     width: 100%;
     margin-bottom: 1rem;
@@ -8,3 +9,37 @@
     background-size: 200%;
     background-position: 100%;
 }
+
+.plus-second {
+    position: absolute;
+    -webkit-text-stroke: 1px var(--black);
+    color: var(--white);
+    opacity: 0;
+    font-size: 2.5rem;
+    will-change: transform, opacity;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.plus-second.animation {
+    animation: plus-second 2s ease-in-out forwards;
+    -webkit-animation: plus-second 2s ease-in-out forwards;
+    -moz-animation: plus-second 2s ease-in-out forwards;
+    -ms-animation: plus-second 2s ease-in-out forwards;
+    -o-animation: plus-second 2s ease-in-out forwards;
+}
+
+@keyframes plus-second {
+    0% {
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+  }
