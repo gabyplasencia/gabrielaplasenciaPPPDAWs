@@ -1,0 +1,83 @@
+@use '../globals' as g;
+
+.results {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+
+    &__title {
+        font-size: var(--fz-m);
+        -webkit-text-stroke: 1px var(--black);
+        color: var(--white);
+        letter-spacing: -1.5px;
+    }
+
+    &__stats {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .stats-wrapper {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    &__text {
+        font-size: var(--fz-s);
+        -webkit-text-stroke: 0.7px var(--black);
+        color: var(--white);
+    }
+
+    &__stats-correct,
+    &__stats-wrong {
+        font-size: var(--fz-l);
+        -webkit-text-stroke: 1px var(--black);
+        letter-spacing: -4px;
+    }
+
+    &__stats-correct {
+        color: var(--bar-green);
+        transform: rotate(5deg);
+        -webkit-transform: rotate(5deg);
+        -moz-transform: rotate(5deg);
+        -ms-transform: rotate(5deg);
+        -o-transform: rotate(5deg);
+    }
+
+    &__stats-wrong {
+        color: var(--bar-red);
+        transform: rotate(-10deg);
+        -webkit-transform: rotate(-10deg);
+        -moz-transform: rotate(-10deg);
+        -ms-transform: rotate(-10deg);
+        -o-transform: rotate(-10deg);
+    }
+
+    &__buttons-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__buttons {
+        height: fit-content;
+    }
+
+    &__buttons-retry {
+        display: flex;
+        gap: 0.5rem;
+
+        span {
+            line-height: 1.2;
+        }
+    }
+
+    &__text-infinity {
+        -webkit-text-stroke: 0.5px var(--black);
+    }
+}

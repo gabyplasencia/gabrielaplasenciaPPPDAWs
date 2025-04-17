@@ -2,20 +2,20 @@ import PropTypes from "prop-types";
 
 const FinalResultsInfinity = ({ correct, incorrect }) => {
     return (
-      <div className="results-container">
-        <h2>Infinity Mode Results</h2>
-        <div className="stats">
-          <div className="correct-stat">
-            ✅ Correct: {correct}
-          </div>
-          <div className="incorrect-stat">
-            ❌ Incorrect: {incorrect}
-          </div>
-          <div className="accuracy">
-            🎯 Accuracy: {Math.round(correct / (correct + incorrect) * 100)}%
-          </div>
+      <div className="main-wrapper results">
+            <h2 className='results__title'>RESULTS</h2>
+            <div className="results__stats">
+                <p className='results__text results__text-infinity'>{correct} CORRECT ANSWERS OUT OF {correct+incorrect}</p>
+                <span className='results__stats-correct'>{Math.round(correct / (correct + incorrect) * 100)}%</span> 
+            </div>
+            <div className="results__buttons-wrapper">
+                <button className='regular-bnt results__buttons' onClick={() => window.location.href = '/category'}>HOME</button>
+                <button className='regular-bnt results__buttons results__buttons-retry'>
+                    <span>PLAY<br></br> AGAIN</span>
+                    <img className='results__retry-icon' src="/assets/icons/retry-icon.svg" alt="retry icon" aria-hidden="true"/>
+                </button>
+            </div>
         </div>
-      </div>
     );
 };
 
