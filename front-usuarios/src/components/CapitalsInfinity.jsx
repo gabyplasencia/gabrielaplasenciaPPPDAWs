@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const CapitalsInfinity = () => {
+const FlagsInfinity = () => {
   const { token } = useAuth();
   const [countries, setCountries] = useState([]);
   const [currentCountry, setCurrentCountry] = useState(null);
@@ -12,6 +13,8 @@ const CapitalsInfinity = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [usedCountries, setUsedCountries] = useState([]);
+  const navigate = useNavigate();
+  
     
     useEffect(() => {
         const fetchCountries = async () => {
@@ -30,21 +33,30 @@ const CapitalsInfinity = () => {
       
         fetchCountries();
       }, [token]);
+
+      const endGame = useCallback(() => {
+        navigate('/results', {
+          state: {
+            gameMode: 'infinity',
+            correctAnswers: correctCount,
+            incorrectAnswers: incorrectCount
+          }
+        });
+      }, [correctCount, incorrectCount, navigate]);
       
           // Generate new round of questions
     const generateRound = useCallback(() => {
         if (countries.length === 0) return;
-        
-        // Filter out already used countries
+
+          // Filter out already used countries
         const availableCountries = countries.filter(
             country => !usedCountries.includes(country.id)
         );
-        
+
         if (availableCountries.length === 0) {
-            // Reset if all countries have been used
-            setUsedCountries([]);
-            generateRound();
-            return;
+          // End game instead of resetting when all countries are used
+          endGame();
+          return;
         }
         
         // Select random correct country
@@ -65,7 +77,7 @@ const CapitalsInfinity = () => {
         setCurrentCountry(correctCountry);
         setOptions(allOptions);
         setUsedCountries(prev => [...prev, correctCountry.id]);
-    }, [countries, usedCountries]);
+    }, [countries, usedCountries, endGame]);
 
     // Start new round when countries load or when needed
     useEffect(() => {
@@ -90,16 +102,12 @@ const CapitalsInfinity = () => {
         setIsCorrect(null);
         setSelectedAnswer(null);
         generateRound();
-      }, 1000);
+      }, 300);
       
     };
 
     return (
         <div className="main-wrapper game" id="flags-infinity">
-        <div className="scoreboard">
-  <p>✅ Correct: {correctCount}</p>
-  <p>❌ Incorrect: {incorrectCount}</p>
-</div>
 
             {currentCountry && (
                 <>
@@ -119,7 +127,7 @@ const CapitalsInfinity = () => {
                               }`}
                               onClick={() => !selectedAnswer && handleAnswer(country)}
                             >
-                               <p>{country.name}</p>
+                            {country.capital}
                             </div>
                         ))}
                     </div>
@@ -133,4 +141,4 @@ const CapitalsInfinity = () => {
     )
 }
 
-export default CapitalsInfinity
+export default FlagsInfinity

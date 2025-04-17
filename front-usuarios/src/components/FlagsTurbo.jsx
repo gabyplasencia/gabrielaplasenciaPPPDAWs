@@ -13,7 +13,7 @@ const FlagsTurbo = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [usedCountries, setUsedCountries] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(60); // 60 seconds initial time
+  const [timeLeft, setTimeLeft] = useState(45); // 45 seconds initial time
   const progressRef = useRef(null);
   const [showBonus, setShowBonus] = useState(false);
   const [randomStyle, setRandomStyle] = useState({});
@@ -109,7 +109,7 @@ const FlagsTurbo = () => {
     // Update progress bar
     useEffect(() => {
       if (progressRef.current) {
-        const percentage = (timeLeft / 60) * 100;
+        const percentage = (timeLeft / 45) * 100;
         progressRef.current.style.backgroundPosition = `${percentage}%`;
       }
     }, [timeLeft]);
@@ -121,7 +121,7 @@ const FlagsTurbo = () => {
       if (selectedCountry.id === currentCountry.id) {
         setIsCorrect(true);
         setCorrectCount(prev => prev + 1);
-        setTimeLeft(prev => Math.min(60, prev + 1)); // Add 1 second, max 60
+        setTimeLeft(prev => Math.min(45, prev + 1)); // Add 1 second, max 45
 
             // Generate random position and rotation
         setRandomStyle({
@@ -155,7 +155,7 @@ const FlagsTurbo = () => {
             <div 
               ref={progressRef}
               className="timebar" 
-              style={{ '--time-left': `${(timeLeft / 60) * 100}%` }}>
+              style={{ '--time-left': `${(timeLeft / 45) * 100}%` }}>
                 {showBonus && (
                   <span 
                     ref={bonusRef}
