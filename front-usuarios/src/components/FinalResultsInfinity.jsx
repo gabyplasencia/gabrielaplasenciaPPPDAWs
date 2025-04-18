@@ -20,8 +20,8 @@ const FinalResultsInfinity = ({ correct, incorrect, gameMode, category }) => {
                 <span className='results__stats-correct'>{Math.round(correct / (correct + incorrect) * 100)}%</span> 
             </div>
             <div className="results__buttons-wrapper">
-                <button className='regular-bnt results__buttons' onClick={() => window.location.href = '/category'}>HOME</button>
-                <button className='regular-bnt results__buttons results__buttons-retry' onClick={handlePlayAgain}>
+                <button className='regular-btn results__buttons' onClick={() => window.location.href = '/category'}>HOME</button>
+                <button className='regular-btn results__buttons results__buttons-retry' onClick={handlePlayAgain}>
                     <span>PLAY<br></br> AGAIN</span>
                     <img className='results__retry-icon' src="/assets/icons/retry-icon.svg" alt="retry icon" aria-hidden="true"/>
                 </button>

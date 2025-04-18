@@ -1,6 +1,6 @@
 @use '../globals' as g;
 
-.regular-bnt {
+.regular-btn {
     font-size: var(--fz-s);
     padding: 0.2rem 1.5rem;
     border-radius: 0.4rem;
@@ -20,7 +20,7 @@
     -o-transition: background-position 380ms ease-out;
 }
 
-.regular-bnt:hover {
+.regular-btn:hover {
     background-position: 0%;
 }
 

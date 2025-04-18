@@ -50,7 +50,7 @@ const Register = () => {
                 <label htmlFor="password" className="form__label">Password:</label>
                 <input type="password" name="password" id="password" className="form__input" required onChange={handleChange}/>
             </div>   
-            <button className="regular-bnt">REGISTER</button> 
+            <button className="regular-btn">REGISTER</button> 
         </form>
       </main>
   )

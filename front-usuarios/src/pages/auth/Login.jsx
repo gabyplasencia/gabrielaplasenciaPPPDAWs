@@ -59,7 +59,7 @@ const Login = () => {
                   <label htmlFor="password" className="form__label">Password:</label>
                   <input type="password" name="password" id="password" className="form__input" onChange={handleChange} required/>
               </div>   
-              <button className="regular-bnt">LOGIN</button> 
+              <button className="regular-btn">LOGIN</button> 
               <div className="login-register__wrapper">
                   <p className="login-register__text">Not register yet?</p>
                   <a className="login-register__link" href="/register">REGISTER</a>
