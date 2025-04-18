@@ -5,7 +5,7 @@ import FinalResultsTurbo from "../../components/FinalResultsTurbo";
 
 const Results = () => {
   const location = useLocation();
-  const { gameMode, correctAnswers, incorrectAnswers } = location.state || {};
+  const { gameMode, correctAnswers, incorrectAnswers, category } = location.state || {};
 
   return (
     <>  
@@ -14,11 +14,15 @@ const Results = () => {
         <FinalResultsTurbo 
           correct={correctAnswers} 
           incorrect={incorrectAnswers} 
+          gameMode={gameMode}
+          category={category}
         />
       ) : (
         <FinalResultsInfinity 
           correct={correctAnswers} 
           incorrect={incorrectAnswers} 
+          gameMode={gameMode}
+          category={category}
         />
       )}
     </>

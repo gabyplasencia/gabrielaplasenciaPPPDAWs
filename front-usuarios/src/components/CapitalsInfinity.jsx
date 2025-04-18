@@ -39,7 +39,8 @@ const FlagsInfinity = () => {
           state: {
             gameMode: 'infinity',
             correctAnswers: correctCount,
-            incorrectAnswers: incorrectCount
+            incorrectAnswers: incorrectCount,
+            category: 'capitals'
           }
         });
       }, [correctCount, incorrectCount, navigate]);

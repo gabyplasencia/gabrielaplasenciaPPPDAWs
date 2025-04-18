@@ -1,17 +1,25 @@
 import CapitalsInfinity from "../../components/CapitalsInfinity";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CapitalsTurbo from "../../components/CapitalsTurbo";
 import Menu from "../../components/Menu";
 
 const Capitals = () => {
     const [game, setGame] = useState(0); // Default to 0, meaning no game is rendered
     const [showMenu, setShowMenu] = useState(true); // Control visibility of the menu
+    const location = useLocation();
+
+    useEffect(() => {
+    if (location.state?.autoStart) {
+        handleStartGame(location.state.mode);
+    }
+    }, [location.state]);
 
     const handleStartGame = (mode) => {
-        setGame(mode);
-        setShowMenu(false); // Hide the menu when a game starts
-        const modeWrapper = document.querySelector('.mode');
-        modeWrapper.style.display = 'none';
+    setGame(mode);
+    setShowMenu(false);
+    const modeWrapper = document.querySelector('.mode');
+    if (modeWrapper) modeWrapper.style.display = 'none';
     };
 
     return (

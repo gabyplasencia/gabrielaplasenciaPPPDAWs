@@ -1,6 +1,18 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-const FinalResultsTurbo = ({ correct, incorrect }) => {
+const FinalResultsTurbo = ({ correct, incorrect, gameMode, category }) => {
+    const navigate = useNavigate();
+  
+    const handlePlayAgain = () => {
+      navigate(`/${category}`, {
+        state: { 
+          autoStart: true,
+          mode: gameMode === 'turbo' ? 2 : 1 
+        }
+      });
+    };
+
     return (
         <div className="main-wrapper results">
             <h2 className='results__title'>RESULTS</h2>
@@ -16,7 +28,7 @@ const FinalResultsTurbo = ({ correct, incorrect }) => {
             </div>
             <div className="results__buttons-wrapper">
                 <button className='regular-bnt results__buttons' onClick={() => window.location.href = '/category'}>HOME</button>
-                <button className='regular-bnt results__buttons results__buttons-retry'>
+                <button className='regular-bnt results__buttons results__buttons-retry' onClick={handlePlayAgain}>
                     <span>PLAY<br></br> AGAIN</span>
                     <img className='results__retry-icon' src="/assets/icons/retry-icon.svg" alt="retry icon" aria-hidden="true"/>
                 </button>
@@ -28,6 +40,8 @@ const FinalResultsTurbo = ({ correct, incorrect }) => {
 FinalResultsTurbo.propTypes = {
   correct: PropTypes.number.isRequired,
   incorrect: PropTypes.number.isRequired,
+  gameMode: PropTypes.string.isRequired, 
+  category: PropTypes.string.isRequired, 
 };
   
   export default FinalResultsTurbo;

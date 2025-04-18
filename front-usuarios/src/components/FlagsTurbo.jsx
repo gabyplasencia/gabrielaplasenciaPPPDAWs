@@ -44,7 +44,8 @@ const FlagsTurbo = () => {
           state: {
             gameMode: 'turbo',
             correctAnswers: correctCount,
-            incorrectAnswers: incorrectCount
+            incorrectAnswers: incorrectCount,
+            category: 'flags'
           }
         });
       }, [correctCount, incorrectCount, navigate]);
