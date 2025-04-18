@@ -14,17 +14,17 @@
         height: 4rem;
         aspect-ratio: 1;
         background-color: var(--menu-bg-color);
-        border-radius: 100px;
-        -webkit-border-radius: 100px;
-        -moz-border-radius: 100px;
-        -ms-border-radius: 100px;
-        -o-border-radius: 100px;
+        border: none;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
         overflow: hidden;
-        border: 4px solid transparent;
         cursor: pointer;
-    }
+}
 
     &__btn:hover {
-        border: 4px solid var(--menu-border-color);
+        box-shadow: inset -1px -1px 0px 4px var(--menu-border-color);
     }
 }
