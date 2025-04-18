@@ -29,73 +29,73 @@ function App() {
   }, [location.pathname, setUser]);
 
   return (
-    <div className={`container ${isAdmin ? "admin" : "user"}`}> 
-      {!isAdmin && (
-        <>
-          <img src="/assets/logo.svg" alt="logo mundiquiz" aria-hidden="true" className="logo"/>
-          <img src="/assets/backgroung/world-bg.svg" alt="a world draw" aria-hidden="true" className="world-bg"/>
-        </>
-      )}
-      <Suspense fallback="loading">
-        <main>
-          <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/login-admin" element={<LoginAdmin />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/category"
-                element={
-                  <PrivateRoute>
-                    <Category />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/flags"
-                element={
-                  <PrivateRoute>
-                    <Flags />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/capitals"
-                element={
-                  <PrivateRoute>
-                    <Capitals />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/results"
-                element={
-                  <PrivateRoute>
-                    <Results />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/admin"
-                element={
-                  <AdminRoute>
-                    <AdminDashboard />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/countries"
-                element={
-                  <AdminRoute>
-                    <AdminCountries/>
-                  </AdminRoute>
-                }
-              />
-              <Route path="/logout" element={<Logout />} />      
-            </Routes>
-        </main>
-      </Suspense>
-    </div>
-  )
+      <div className={`container ${isAdmin ? "admin" : "user"}`}> 
+        {!isAdmin && (
+          <>
+            <img src="/assets/logo.svg" alt="logo mundiquiz" aria-hidden="true" className="logo"/>
+            <img src="/assets/background/world-bg.svg" alt="a world draw" aria-hidden="true" className="world-bg"/>
+          </>
+        )}
+        <Suspense fallback="loading">
+          <main>
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/login-admin" element={<LoginAdmin />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/category"
+                  element={
+                    <PrivateRoute>
+                      <Category />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/flags"
+                  element={
+                    <PrivateRoute>
+                      <Flags />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/capitals"
+                  element={
+                    <PrivateRoute>
+                      <Capitals />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/results"
+                  element={
+                    <PrivateRoute>
+                      <Results />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/admin"
+                  element={
+                    <AdminRoute>
+                      <AdminDashboard />
+                    </AdminRoute>
+                  }
+                />
+                <Route
+                  path="/countries"
+                  element={
+                    <AdminRoute>
+                      <AdminCountries/>
+                    </AdminRoute>
+                  }
+                />
+                <Route path="/logout" element={<Logout />} />      
+              </Routes>
+          </main>
+        </Suspense>
+      </div>
+      )
 }
 
 export default App

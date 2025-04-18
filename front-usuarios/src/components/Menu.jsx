@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { AudioContext } from "../context/AudioContext";
 
 const Menu = () => {
     const { user } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { isPlaying, toggleMusic } = useContext(AudioContext);
 
     useEffect(() => {
       document.documentElement.style.setProperty('--menu-bg-color', 'rgb(255, 211, 211)');
@@ -43,7 +45,11 @@ const Menu = () => {
                   <h2 className="modal__title">MENU</h2>
                   <div className="modal__music-wrapper">
                       <p className="modal__music-text">MUSIC</p>
-                      <button className="regular-btn modal__music-btn" aria-label="turn on music">ON</button>
+                      <button className="regular-btn modal__music-btn"                         
+                        onClick={toggleMusic}
+                        aria-label={isPlaying ? "Turn off music" : "Turn on music"}>
+                        {isPlaying ? 'OFF' : 'ON'}
+                        </button>
                   </div>
                   <button className="regular-btn">SCORES</button>
                   <button className="regular-btn">AVATAR</button>
