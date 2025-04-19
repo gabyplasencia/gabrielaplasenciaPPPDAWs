@@ -13,7 +13,7 @@
     &__btn {
         height: 4rem;
         aspect-ratio: 1;
-        background-color: var(--menu-bg-color);
+        background-color: var(--avatar-bg-color);
         border: none;
         border-radius: 50%;
         -webkit-border-radius: 50%;
@@ -25,6 +25,6 @@
 }
 
     &__btn:hover {
-        box-shadow: inset -1px -1px 0px 4px var(--menu-border-color);
+        box-shadow: inset -1px -1px 0px 4px var(--avatar-border-color);
     }
 }

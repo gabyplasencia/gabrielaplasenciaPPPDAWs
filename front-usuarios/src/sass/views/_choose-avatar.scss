@@ -1,0 +1,35 @@
+.avatar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    &__option {
+        background-color: var(--avatar-bg-color, white);
+        height: 6rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    &__option.selected {
+        border: 5px solid var(--avatar-border-color, black);
+        -webkit-border: 3px solid var(--avatar-border-color, black);
+        -moz-border: 3px solid var(--avatar-border-color, black);
+        -ms-border: 3px solid var(--avatar-border-color, black);
+        -o-border: 3px solid var(--avatar-border-color, black);
+    }
+}
