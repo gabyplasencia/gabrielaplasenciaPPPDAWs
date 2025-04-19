@@ -55,7 +55,7 @@
     &__answer.correct {
         border-color: var(--green);
         color: var(--dark-green);
-        box-shadow: inset 0 500px rgb(0, 255, 0);
+        box-shadow: inset 0 500px var(--bg-correct);
     }
 
     &__answer.correct > .game__answer-flag,
@@ -66,7 +66,7 @@
     &__answer.wrong {
         border-color: var(--red);
         color: var(--dark-red);
-        box-shadow: inset 0  500px rgb(255, 0, 0);
+        box-shadow: inset 0  500px var(--bg-wrong);
     }
 
     &__answer-flag {

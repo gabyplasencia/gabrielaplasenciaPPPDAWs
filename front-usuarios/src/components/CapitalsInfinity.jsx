@@ -34,6 +34,11 @@ const FlagsInfinity = () => {
         fetchCountries();
       }, [token]);
 
+      useEffect(() => {
+        document.documentElement.style.setProperty('--bg-correct', 'rgb(196, 255, 196)');
+        document.documentElement.style.setProperty('--bg-wrong', 'rgb(255, 194, 194)');
+    }, []);
+
       const endGame = useCallback(() => {
         navigate('/results', {
           state: {

@@ -38,6 +38,11 @@ const FlagsTurbo = () => {
         fetchCountries();
       }, [token]);
 
+      useEffect(() => {
+        document.documentElement.style.setProperty('--bg-correct', 'rgb(0, 255, 0)');
+        document.documentElement.style.setProperty('--bg-wrong', 'rgb(255, 0, 0)');
+    }, []);
+
             // Game end handler
       const endGame = useCallback(() => {
         navigate('/results', {
