@@ -8,6 +8,7 @@ const Login = () => {
   const [error, setError] = useState(""); // Nuevo estado para mensajes
   const navigate = useNavigate();
   const { login, user } = useAuth();
+  const [loading, setLoading] = useState(false); // NUEVO
 
   useEffect(() => {
     if (user && !user.is_admin) {
@@ -22,6 +23,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(""); // limpia error anterior
+    setLoading(true);
     try {
       const res = await api.post("/auth/login", form);
       const token = res.data.access_token;
@@ -43,9 +45,16 @@ const Login = () => {
         setError(err.response.data.error);
       } else {
         setError("Ups there was an error trying to login.");
-      }
+      } 
+    } finally {
+      setLoading(false); // TERMINA EL LOADING
     }
   };
+
+  if (loading) {
+    return <div className="loading-text">Loading...</div>;
+  }
+  
   return (
       <div className="main-wrapper">
           {error && <div className="error-message">{error}</div>}

@@ -8,6 +8,7 @@ const LoginAdmin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login, user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user && user.is_admin) {
@@ -22,6 +23,7 @@ const LoginAdmin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       const res = await api.post("/auth/login", form);
       const token = res.data.access_token;
@@ -50,8 +52,15 @@ const LoginAdmin = () => {
       } else {
         setError("INVALID CREDENTIALS");
       }
+    } finally {
+      setLoading(false); // TERMINA EL LOADING
     }
   };
+
+  if (loading) {
+    return <div className="loading-text">Loading...</div>;
+  }
+
   return (
     <form action="/" id="login" className="login admin__main-wrapper" onSubmit={handleLogin}>
         {error && <div className="error-message">{error}</div>}
