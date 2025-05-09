@@ -4,4 +4,9 @@
         font-size: var(--fz-s);
         font-weight: var(--fw-300);
     }
+
+    &__label {
+        color: var(--gray-200);
+        font-size: var(--fz-xs);
+    }
 }
