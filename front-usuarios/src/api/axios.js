@@ -8,4 +8,12 @@ const api = axios.create({
   },
 });
 
+// Interceptor para manejar FormData
+api.interceptors.request.use((config) => {
+  if (config.data instanceof FormData) {
+    config.headers['Content-Type'] = 'multipart/form-data';
+  }
+  return config;
+});
+
 export default api;

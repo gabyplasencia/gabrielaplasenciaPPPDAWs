@@ -2,7 +2,33 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+
+    &__subtitle {
+        font-size: var(--fz-m);
+        -webkit-text-stroke: 1px var(--black);
+        color: var(--white);
+        margin-bottom: 0.5rem;
+    }
+
+    &__default, &__custom {
+        align-self: flex-start;
+        width: 100%;
+    }
+
+    &__custom {
+        &-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 2rem;
+        }
+        &-avatar{
+            height: 100%;
+            object-fit: cover;
+        }
+    }
 
     &__wrapper {
         display: flex;
@@ -14,7 +40,7 @@
 
     &__option {
         background-color: var(--avatar-bg-color, white);
-        height: 6rem;
+        height: 5.5rem;
         aspect-ratio: 1;
         border-radius: 50%;
         -webkit-border-radius: 50%;
@@ -31,5 +57,9 @@
         -moz-border: 3px solid var(--avatar-border-color, black);
         -ms-border: 3px solid var(--avatar-border-color, black);
         -o-border: 3px solid var(--avatar-border-color, black);
+    }
+
+    &__change-btn {
+        margin-top: 1rem;
     }
 }

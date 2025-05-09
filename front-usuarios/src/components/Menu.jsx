@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { AudioContext } from "../context/AudioContext";
@@ -10,6 +10,9 @@ const Menu = () => {
     const { isPlaying, toggleMusic } = useContext(AudioContext);
     const [activeModal, setActiveModal] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar || ""); // Track selected avatar
+    const [customAvatar, setCustomAvatar] = useState(null);
+    const [preview, setPreview] = useState("");
+    const fileInputRef = useRef(null);
 
     const avatars = [
         "chiken.png",
@@ -57,6 +60,66 @@ const Menu = () => {
         }
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCustomAvatar(file);
+            setSelectedAvatar(""); // Deseleccionar avatar predeterminado
+            
+            // Crear vista previa
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const triggerFileInput = () => {
+        fileInputRef.current.click();
+    };
+
+    const selectAvatar = async () => {
+        try {
+            let avatarData;
+            
+            if (customAvatar) {
+                const formData = new FormData();
+                formData.append('avatar', customAvatar);
+                
+                const response = await api.post(
+                    "/modify-avatar",
+                    formData,
+                    { 
+                        headers: { 
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'multipart/form-data'
+                        } 
+                    }
+                );
+                avatarData = response.data.avatar;
+            } else if (selectedAvatar) {
+                const response = await api.post(
+                    "/modify-avatar",
+                    { avatar: selectedAvatar },
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                avatarData = response.data.avatar;
+            } else {
+                return;
+            }
+
+            const updatedUser = { ...user, avatar: avatarData };
+            setUser(updatedUser);
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+            setActiveModal('main');
+            setCustomAvatar(null);
+            setPreview("");
+        } catch (err) {
+            console.error("Error updating avatar:", err);
+        }
+    };
+
     useEffect(() => {
         if (selectedAvatar && avatarStyles[selectedAvatar]) {
             const { bgColor, borderColor } = avatarStyles[selectedAvatar];
@@ -73,7 +136,24 @@ const Menu = () => {
     }, [activeModal, user?.avatar]);
 
     if (!user) return null;
-    const avatarPath = "/assets/avatars/" + user.avatar;
+    const getAvatarPath = (avatar) => {
+        if (!avatar) return '/assets/avatars/kitty.png'; // Avatar por defecto
+        
+        // Si es un avatar personalizado (viene como 'avatars/filename.ext')
+        if (avatar.startsWith('avatars/')) {
+            const filename = avatar.replace('avatars/', '');
+            return `http://127.0.0.1:8000/storage/avatars/${filename}`;
+        }
+        
+        // Si es un avatar predeterminado
+        if (avatars.includes(avatar)) {
+            return `/assets/avatars/${avatar}`;
+        }
+        
+        return '/assets/avatars/kitty.png'; // Fallback
+    };
+    
+    const avatarPath = user?.avatar_url || getAvatarPath(user?.avatar);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -84,27 +164,6 @@ const Menu = () => {
         setActiveModal('avatar');
     };
 
-    const selectAvatar = async () => {
-        if (!selectedAvatar || selectedAvatar === user.avatar) {
-            setActiveModal('main');
-            return;
-        }
-        
-        try {
-            await api.post(
-                "/modify-avatar",
-                { avatar: selectedAvatar },
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-
-            const updatedUser = { ...user, avatar: selectedAvatar };
-            setUser(updatedUser);
-            localStorage.setItem("user", JSON.stringify(updatedUser));
-            setActiveModal('main');
-        } catch (err) {
-            console.error("Error updating avatar:", err);
-        }
-    };
 
     return (
         <>
@@ -112,14 +171,14 @@ const Menu = () => {
               <div className="overlay" onClick={toggleMenu} aria-hidden="true" />
           )}
           <section className="menu">
-          <button 
-                className="menu__btn"
-                aria-label="open menu"
-                onClick={toggleMenu}
-                aria-expanded={isMenuOpen}
-            >
-                  <img src={avatarPath} alt="profile photo" aria-hidden="true"/>
-              </button>
+                <button 
+                    className="menu__btn"
+                    aria-label="open menu"
+                    onClick={toggleMenu}
+                    aria-expanded={isMenuOpen}
+                >
+                    <img className={user?.avatar && !avatars.includes(user.avatar) ? 'avatar__custom-avatar' : ''}  src={avatarPath} alt="profile photo" aria-hidden="true"/>
+                </button>
               <h4>MENU</h4>
           </section>
           <section className={`modal__container ${isMenuOpen ? 'isOpen' : ''}`}
@@ -152,44 +211,82 @@ const Menu = () => {
               {activeModal === 'avatar' && (
                 <div className="modal main-wrapper avatar">
                     <h2 className="modal__title">AVATAR</h2>
+                    <div className="avatar__default">
+                    <h3 className="avatar__subtitle">CHOOSE A PET</h3>
                     <div className="avatar__wrapper">
-              {avatars.map((avatar) => {
-                  const avatarName = avatar.split('.')[0];
-                  return (
-                      <div 
-                          key={avatar}
-                          className={`avatar__option avatar__option-${avatarName} ${
-                              selectedAvatar === avatar ? 'selected' : ''
-                          }`}
-                          onClick={() => setSelectedAvatar(avatar)}
-                          role="button"
-                          tabIndex="0"
-                          aria-label={`Select ${avatarName} avatar`}
-                          style={{
-                              backgroundColor: avatarStyles[avatar]?.bgColor || 'white'
-                          }}
-                      >
-                          <img 
-                              src={`/assets/avatars/${avatar}`} 
-                              alt={avatarName} 
-                              aria-hidden="true"
-                          />
-                      </div>
-                  );
-              })}
-          </div>
+                    {avatars.map((avatar) => {
+                            const avatarName = avatar.split('.')[0];
+                            return (
+                                <div 
+                                    key={avatar}
+                                    className={`avatar__option avatar__option-${avatarName} ${
+                                        selectedAvatar === avatar ? 'selected' : ''
+                                    }`}
+                                    onClick={() => {
+                                        setSelectedAvatar(avatar);
+                                        setCustomAvatar(null);
+                                        setPreview("");
+                                    }}
+                                    role="button"
+                                    tabIndex="0"
+                                    aria-label={`Select ${avatarName} avatar`}
+                                    style={{
+                                        backgroundColor: avatarStyles[avatar]?.bgColor || 'white'
+                                    }}
+                                >
+                                    <img 
+                                        src={`/assets/avatars/${avatar}`} 
+                                        alt={avatarName} 
+                                        aria-hidden="true"
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                    </div>
+                    <div className="avatar__custom">
+                        <h3 className="avatar__subtitle">OR CHOOSE YOUR OWN</h3>
+                        <div className="avatar__custom-wrapper">
+                            <input 
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                />
+                                <button 
+                                    className="regular-btn"
+                                    onClick={triggerFileInput}
+                                >
+                                    Upload file
+                                </button>
+                                {preview && (
+                                    <div className="avatar__option">
+                                        <img 
+                                            src={preview} 
+                                            alt="preview" 
+                                            className="avatar__custom-avatar" 
+                                        />
+                                    </div>
+                                )}
+                        </div>
+                    </div>
                     <button 
-                        className="avatar__change-btn regular-btn"
-                        onClick={selectAvatar}
-                        disabled={selectedAvatar === user.avatar}
-                    >
-                        CHANGE AVATAR
-                    </button>
+                            className="avatar__change-btn regular-btn"
+                            onClick={selectAvatar}
+                            disabled={!selectedAvatar && !customAvatar}
+                        >
+                            CHANGE AVATAR
+                        </button>
                     <img className="modal__close mode__icon" 
                          src="/assets/icons/close-icon.png" 
                          alt="close icon" 
                          aria-label="close menu" 
-                         onClick={() => setActiveModal('main')}/>
+                         onClick={() => {
+                            setActiveModal('main');
+                            setCustomAvatar(null);
+                            setPreview("");
+                        }}/>
                 </div>
               )}
           </section>
