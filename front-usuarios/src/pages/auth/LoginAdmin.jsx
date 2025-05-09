@@ -48,7 +48,7 @@ const LoginAdmin = () => {
       } else if (err.response?.data?.error) {
         setError(err.response.data.error);
       } else {
-        setError("Error trying to login.");
+        setError("INVALID CREDENTIALS");
       }
     }
   };
