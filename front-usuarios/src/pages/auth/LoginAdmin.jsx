@@ -53,18 +53,18 @@ const LoginAdmin = () => {
     }
   };
   return (
-    <form action="/" id="login" onSubmit={handleLogin}>
+    <form action="/" id="login" className="login admin__main-wrapper" onSubmit={handleLogin}>
         {error && <div className="error-message">{error}</div>}
-        <h1>LOGIN</h1>
-        <div>
-            <label htmlFor="email">Email:</label>
-            <input type="email" name="email" id="email" onChange={handleChange} required/>
+        <h2 className="admin__title">ADMIN LOGIN</h2>
+        <div className="login__input-wrapper">
+            <label htmlFor="email" className="login__label">Email:</label>
+            <input type="email" name="email" id="email" onChange={handleChange} required className="login__input"/>
         </div>
-        <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" name="password" id="password" onChange={handleChange} required/>
+        <div className="login__input-wrapper">
+            <label htmlFor="password" className="login__label">Password:</label>
+            <input type="password" name="password" id="password" onChange={handleChange} required className="login__input"/>
         </div>   
-        <button>LOGIN</button> 
+        <button className="admin__regular-btn">LOGIN</button> 
     </form>
 )
 }

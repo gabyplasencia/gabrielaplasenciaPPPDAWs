@@ -36,6 +36,11 @@ function App() {
             <img src="/assets/background/world-bg.svg" alt="a world draw" aria-hidden="true" className="world-bg"/>
           </>
         )}
+        {isAdmin && (
+          <>
+            <h1 className="admin__header">MUNDIQUIZ DATA BASE ACCESS</h1>
+          </>
+        )}
         <Suspense fallback="loading">
           <main>
             <Routes>

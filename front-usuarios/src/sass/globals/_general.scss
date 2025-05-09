@@ -10,6 +10,10 @@
     }
 }
 
+.admin {
+    font-family: var(--ff-roboto-mono);
+}
+
 .world-bg {
     position: fixed;
     bottom: 0px;
@@ -47,6 +51,7 @@
         height: 15vh;
     }
 }
+
 .error-message {
     background-color: #ffdddd;
     color: #d8000c;
