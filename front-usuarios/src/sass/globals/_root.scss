@@ -1,10 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=McLaren&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 $desktop: 1200px;
 $tablet: 769px;
 $mobile: 420px;
 
 :root {
+
+    //ADMINS
+    //colors
+    --blue-100: rgb(218, 233, 255);
+    --blue-200: rgb(197, 221, 255);
+    --blue-300: rgb(109, 133, 185);
+    --blue-400: rgb(1, 0, 76);
+    --gray-100: rgb(155, 155, 155);
+    --gray-200: rgb(40, 40, 40);
+    --gray-300: rgb(31, 31, 31);
+    --yellow-300: rgb(212, 155, 0);
+    --yelow-400: rgb(157, 131, 58);
+    --red-300: rgb(212, 0, 0);
+    --green-300: rgb(60, 150, 0);
+    --green-400: rgb(13, 72, 0);
+
+    //USUARIOS//
     // colors
     --white: rgb(255, 255, 255);
     --black: rgb(0, 0, 0);
@@ -26,6 +44,7 @@ $mobile: 420px;
 
     // Fonts
     --ff-mclaren: "McLaren", sans-serif;
+    --ff-roboto-mono: "Roboto Mono", monospace;
     --fz-xs: 1.1rem;
     --fz-s: 1.5rem;
     --fz-m: 2rem;
@@ -36,4 +55,5 @@ $mobile: 420px;
     //menu
     --menu-bg-color: "";
     --menu-border-color: "";
+
 }
