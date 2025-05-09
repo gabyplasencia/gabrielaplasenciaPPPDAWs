@@ -38,7 +38,7 @@ function App() {
         )}
         {isAdmin && (
           <>
-            <h1 className="admin__header">MUNDIQUIZ DATA BASE ACCESS</h1>
+            <h1 className="logo admin__logo">MUNDIQUIZ DATABASE ACCESS</h1>
           </>
         )}
         <Suspense fallback="loading">
