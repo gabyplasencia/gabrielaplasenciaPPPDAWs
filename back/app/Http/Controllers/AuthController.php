@@ -156,4 +156,28 @@ class AuthController extends Controller
         return redirect('http://localhost:5173/');
     }
 
+    public function registerAdmin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $admin = User::create([
+            'name'              => $request->name,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
+            'avatar'            => 'kitty.png',
+            'is_admin'          => 1,
+            'email_verified_at' => now()
+        ]);
+
+        return response()->json(['message' => 'Admin created successfully']);
+    }
+
 }

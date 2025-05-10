@@ -14,6 +14,7 @@ import Logout from "./components/Logout";
 import { useAuth } from "./context/AuthContext";
 import AdminCountries from "./pages/admin/AdminCountries";
 import Results from "./pages/users/Results";
+import AddAdmin from "./pages/auth/AddAdmin";
 
 function App() {
   const { user, setUser } = useAuth();
@@ -92,6 +93,14 @@ function App() {
                   element={
                     <AdminRoute>
                       <AdminCountries/>
+                    </AdminRoute>
+                  }
+                />
+                <Route
+                  path="/add-admin"
+                  element={
+                    <AdminRoute>
+                      <AddAdmin />
                     </AdminRoute>
                   }
                 />

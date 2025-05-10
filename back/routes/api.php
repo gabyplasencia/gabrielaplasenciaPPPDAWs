@@ -34,4 +34,5 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::post('/countries', [CountryController::class, 'store']);
     Route::put('/countries/{id}', [CountryController::class, 'update']);
     Route::delete('/countries/{id}', [CountryController::class, 'destroy']);
+    Route::post('/register-admin', [AuthController::class, 'registerAdmin']);
 });
