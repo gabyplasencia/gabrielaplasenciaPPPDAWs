@@ -1,0 +1,38 @@
+@use '../globals' as g;
+
+.admin {
+    &__menu {
+        display: flex;
+        gap: 0.5rem;
+        position: fixed;
+        top: 1rem;
+        right: 0.4rem;
+        line-height: 1;
+        @include g.media(g.$desktop){
+            right: 1rem;
+            gap: 1.5rem;
+        }
+
+        &-item {
+            padding: 0.3rem 0.8rem;
+            font-weight: var(--fw-300);
+            font-size: var(--fz-xs);
+            color: white;
+            @include g.media(g.$desktop){
+                font-size: var(--fz-s);
+        }
+        }
+
+        &-item:hover {
+            opacity: 0.95;
+        }
+
+        &-item.--mod-home {
+            background-color: var(--blue-300);
+        }
+
+        &-item.--mod-log-out {
+            background-color: var(--red-300);
+        }
+    }
+}

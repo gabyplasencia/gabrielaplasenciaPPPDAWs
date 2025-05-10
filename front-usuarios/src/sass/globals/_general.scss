@@ -59,11 +59,14 @@
     color: var(--blue-400);
     background-color: var(--blue-200);
     height: fit-content;
+    width: 50dvw;
+    text-align: center;
     padding: 0.5rem 0.8rem;
     line-height: 1;
-    @include mixin.media(root.$tablet){
+    @include mixin.media(root.$desktop){
         padding: 1rem 2rem;
         font-size: var(--fz-ml);
+        width: fit-content;
     }
 }
 

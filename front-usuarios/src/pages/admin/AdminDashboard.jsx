@@ -1,16 +1,20 @@
 import { useAuth } from "../../context/AuthContext";
+import AdminMenu from "../../components/AdminMenu";
 import { Link } from "react-router-dom";
 
 export default function Admin() {
     const { user } = useAuth();
     return user && user.is_admin ? (
-      <div>
-        <Link to="/logout">Cerrar sesión</Link>
-        <h1>👑 Bienvenido al panel, administrador {user.name}</h1>
-        <Link to="/countries">Administrar paises</Link>
+      <>
+      <AdminMenu />
+      <div className="admin__main-wrapper admin__home">
+        <Link to="/countries" className="admin__regular-btn">COUNTRY OPTIONS</Link>
+        <Link to="/countries" className="admin__regular-btn">ADD ADMIN</Link>
+        <Link to="/countries" className="admin__regular-btn">TICKETS</Link>
       </div>
+      </>
     ) : (
-      <p>Cargando usuario...</p>
+      <p>Loading...</p>
     );
   }
 

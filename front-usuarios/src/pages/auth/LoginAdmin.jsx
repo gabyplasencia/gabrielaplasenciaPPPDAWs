@@ -73,7 +73,7 @@ const LoginAdmin = () => {
             <label htmlFor="password" className="admin__label">Password:</label>
             <input type="password" name="password" id="password" onChange={handleChange} required className="login__input"/>
         </div>   
-        <button className="admin__regular-btn">LOGIN</button> 
+        <button className="admin__regular-btn login__btn">LOGIN</button> 
     </form>
 )
 }

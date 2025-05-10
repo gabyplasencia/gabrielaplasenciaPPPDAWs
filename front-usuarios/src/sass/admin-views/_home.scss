@@ -1,0 +1,12 @@
+@use '../globals' as g;
+
+.admin {
+    &__home {
+        min-width: 95dvw;
+        gap: 1rem;
+        @include g.media(g.$tablet){
+            min-width: 40rem;
+            padding: 2rem;
+        }
+    }
+}
