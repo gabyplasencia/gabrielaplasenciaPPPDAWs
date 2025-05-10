@@ -28,7 +28,7 @@ const FlagsTurbo = () => {
                 Authorization: `Bearer ${token}`,
               },
             });
-            console.log("📦 Datos recibidos:", res.data); // <- esto nos dice si realmente llega
+            // console.log("📦 Datos recibidos:", res.data); // <- esto nos dice si realmente llega
             setCountries(res.data);
           } catch (err) {
             console.error("❌ Error al cargar países:", err);

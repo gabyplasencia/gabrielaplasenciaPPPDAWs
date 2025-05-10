@@ -1,8 +1,38 @@
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
+import api from "../api/axios";
 
 const FinalResultsTurbo = ({ correct, incorrect, gameMode, category }) => {
     const navigate = useNavigate();
+    const { token } = useAuth();
+    const hasSubmitted = useRef(false);
+
+    useEffect(() => {
+        const saveScore = async () => {
+            try {
+                const response = await api.post('/scores', {
+                    mode: gameMode,
+                    category,
+                    score: correct,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                console.log("✅ Puntaje guardado:", response.data);
+            } catch (error) {
+                console.error("❌ Error al guardar el puntaje:", error);
+            }
+        };
+
+        if (token && !hasSubmitted.current) {
+            hasSubmitted.current = true;
+            saveScore();
+        }
+    }, [correct, gameMode, category, token]);
+
   
     const handlePlayAgain = () => {
       navigate(`/${category}`, {

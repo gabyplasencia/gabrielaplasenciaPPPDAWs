@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ScoreController;
 
 // 🟢 Rutas públicas
 Route::prefix('auth')->group(function () {
@@ -25,6 +26,7 @@ Route::middleware('auth:api')->get('/countries/all', [CountryController::class, 
 
 //Modify Avatar
 Route::middleware('auth:api')->post('/modify-avatar', [AvatarController::class, 'updateAvatar']);
+Route::middleware('auth:api')->post('/scores', [ScoreController::class, 'store']);
 
 // 🔐 Rutas solo para administradores
 Route::middleware(['auth:api', 'admin'])->group(function () {
