@@ -28,7 +28,7 @@ class VerifyEmailMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verifica tu correo en Mundiquiz',
+            subject: 'Verify your email on Mundiquiz',
         );
     }
 

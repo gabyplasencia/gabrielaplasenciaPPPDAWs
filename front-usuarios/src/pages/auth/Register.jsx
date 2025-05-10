@@ -4,7 +4,7 @@ import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
 
 const Register = () => {
-  const [form, setForm] = useState({ name: "", email: "", password: "", avatar: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", avatar: "kitty.png" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();

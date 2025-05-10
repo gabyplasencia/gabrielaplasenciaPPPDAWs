@@ -49,7 +49,7 @@ class AuthController extends Controller
         // Enviar correo con Mailtrap
         Mail::to($user->email)->send(new VerifyEmailMailable($verificationUrl));
     
-        return response()->json(['message' => 'Registro exitoso. Revisa tu correo para verificar tu cuenta.']);
+        return response()->json(['message' => 'Register successful. Verify your email']);
     }
 
     // Inicio de sesión
@@ -70,19 +70,19 @@ class AuthController extends Controller
         try {
             // Intentar autenticar y obtener token
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Credenciales inválidas'], 401);
+                return response()->json(['error' => 'Invalid credentials'], 401);
             }
     
             // Obtener usuario desde el token generado
             $user = JWTAuth::user();
     
             if (!$user) {
-                return response()->json(['error' => 'Usuario no encontrado.'], 404);
+                return response()->json(['error' => 'User not found'], 404);
             }
     
             // Verificar si el correo ha sido verificado
             if (!$user->hasVerifiedEmail()) {
-                return response()->json(['error' => 'Debes verificar tu correo electrónico.'], 403);
+                return response()->json(['error' => 'You have to verify your email'], 403);
             }
     
             // Respuesta con token
@@ -142,18 +142,18 @@ class AuthController extends Controller
             'user'         => Auth::guard('api')->user()
         ]);
     }
+
     public function verifyEmail(Request $request, $id)
     {
         $user = User::findOrFail($id);
-    
-        if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'El correo ya está verificado.'], 200);
+
+        if (!$user->hasVerifiedEmail()) {
+            if ($user->markEmailAsVerified()) {
+                event(new Verified($user));
+            }
         }
-    
-        if ($user->markEmailAsVerified()) {
-            event(new Verified($user));
-        }
-    
-        return response()->json(['message' => 'Correo verificado correctamente. Ahora puedes iniciar sesión.'], 200);
+
+        return redirect('http://localhost:5173/');
     }
+
 }

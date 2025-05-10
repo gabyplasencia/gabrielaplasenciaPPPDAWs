@@ -1,18 +1,18 @@
 @component('mail::message')
-# ¡Hola!
+# Hi!
 
-Gracias por registrarte en **Mundiquiz** 🎉
+Thanks for registering with **Mundiquiz** 🎉
 
-Haz clic en el botón de abajo para **verificar tu correo electrónico**:
+Click the button below to **verify your email address**:
 
 @component('mail::button', ['url' => $verificationUrl])
-Verificar correo
+Verify Email
 @endcomponent
 
-Este enlace expirará en 60 minutos.
+This link will expire in 60 minutes.
 
-Si no creaste esta cuenta, puedes ignorar este mensaje.
+If you didn’t create this account, you can ignore this message.
 
-Gracias,<br>
-El equipo de Mundiquiz
+Thanks,<br>
+The Mundiquiz Team
 @endcomponent
