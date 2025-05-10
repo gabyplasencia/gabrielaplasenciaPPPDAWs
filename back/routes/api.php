@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\TicketController;
 
 // 🟢 Rutas públicas
 Route::prefix('auth')->group(function () {
@@ -27,6 +28,7 @@ Route::middleware('auth:api')->get('/countries/all', [CountryController::class, 
 Route::middleware('auth:api')->post('/modify-avatar', [AvatarController::class, 'updateAvatar']);
 Route::middleware('auth:api')->post('/scores', [ScoreController::class, 'store']);
 Route::middleware('auth:api')->get('/scores', [ScoreController::class, 'userScores']);
+Route::middleware('auth:api')->post('/tickets', [TicketController::class, 'store']);
 
 // 🔐 Rutas solo para administradores
 Route::middleware(['auth:api', 'admin'])->group(function () {
@@ -35,4 +37,6 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::put('/countries/{id}', [CountryController::class, 'update']);
     Route::delete('/countries/{id}', [CountryController::class, 'destroy']);
     Route::post('/register-admin', [AuthController::class, 'registerAdmin']);
+    Route::get('/tickets', [TicketController::class, 'index']);
+    Route::patch('/tickets/{id}/status', [TicketController::class, 'updateStatus']);
 });
