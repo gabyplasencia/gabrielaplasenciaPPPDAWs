@@ -1,0 +1,51 @@
+@use '../globals' as g;
+
+.game {
+    &__groups-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        font-size: var(--fz-s);
+        max-height: 60dvh;
+        overflow-y: scroll;
+        @include g.media(g.$tablet){
+            grid-template-columns: 1fr 1fr;
+            max-height: unset;
+            overflow-y: unset;
+        }
+    }
+
+    &__group {
+        font-size: var(--fz-m);
+        -webkit-text-stroke: 1px var(--black);
+        color: var(--white);
+        text-align: center;
+    }
+
+    &__scores {
+        background-color: var(--pale-yellow);
+        padding: 0.5rem;
+    }
+
+    &__score {
+        display: flex;
+        align-items: center;
+        gap: 1rem;  
+
+        span {
+            border-right: 2px solid rgb(120, 120, 120);
+            width: 2rem;
+            text-align: center;
+        }
+
+        p { 
+            font-size: var(--fz-m);
+            -webkit-text-stroke: 1px var(--black);
+            color: var(--white);
+        }
+    }
+
+    &__score + &__score{
+        border-top: 2px solid rgb(120, 120, 120);
+    }
+}

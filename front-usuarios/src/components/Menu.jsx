@@ -13,6 +13,7 @@ const Menu = () => {
     const [customAvatar, setCustomAvatar] = useState(null);
     const [preview, setPreview] = useState("");
     const fileInputRef = useRef(null);
+    const [scores, setScores] = useState({});
 
     const avatars = [
         "chiken.png",
@@ -120,6 +121,26 @@ const Menu = () => {
         }
     };
 
+    //puntajes
+    useEffect(() => {
+    const fetchScores = async () => {
+        try {
+            const res = await api.get('/scores', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setScores(res.data);
+        } catch (err) {
+            console.error("❌ Error al cargar scores:", err);
+        }
+    };
+        if (activeModal === 'scores') {
+            fetchScores();
+        }
+    }, [activeModal, token]);
+
+
     useEffect(() => {
         if (selectedAvatar && avatarStyles[selectedAvatar]) {
             const { bgColor, borderColor } = avatarStyles[selectedAvatar];
@@ -194,7 +215,7 @@ const Menu = () => {
                           {isPlaying ? 'OFF' : 'ON'}
                         </button>
                     </div>
-                    <button className="regular-btn">SCORES</button>
+                    <button className="regular-btn" onClick={() => setActiveModal('scores')}>SCORES</button>
                     <button className="regular-btn" onClick={openAvatarModal}>
                         AVATAR
                     </button>
@@ -207,6 +228,34 @@ const Menu = () => {
                          onClick={toggleMenu}/>
                 </div>
               )}
+
+              {activeModal === 'scores' && (
+                <div className="modal main-wrapper">
+                    <h2 className="modal__title">YOUR SCORES</h2>
+                    <div className="game__groups-wrapper">
+                    {Object.entries(scores).map(([group, groupScores]) => (
+                        <div key={group} className="game__wrapper">
+                            <h3 className="game__group">{group.toUpperCase()}</h3>
+                            <ul className="game__scores">
+                                {groupScores.map((s, i) => (
+                                <li key={i} className="game__score">
+                                    <span>{i+1}</span>
+                                    <p>{group.includes('infinity') ? `${s.score}%` : s.score}</p>
+                                </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                    </div>
+                    <img
+                        className="modal__close mode__icon"
+                        src="/assets/icons/close-icon.png"
+                        alt="close icon"
+                        aria-label="close scores modal"
+                        onClick={() => setActiveModal('main')}
+                    />
+                </div>
+                )}
 
               {activeModal === 'avatar' && (
                 <div className="modal main-wrapper avatar">

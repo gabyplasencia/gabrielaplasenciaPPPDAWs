@@ -40,5 +40,20 @@ class ScoreController extends Controller
 
         return response()->json(['message' => 'Score guardado correctamente'], 201);
     }
-}
 
+    public function userScores()
+    {
+        $user = Auth::user();
+
+        $scores = Score::where('user_id', $user->id)
+            ->orderBy('category')
+            ->orderBy('mode')
+            ->orderByDesc('score')
+            ->get()
+            ->groupBy(function ($score) {
+                return $score->category . '-' . $score->mode;
+            });
+
+        return response()->json($scores);
+    }
+}
