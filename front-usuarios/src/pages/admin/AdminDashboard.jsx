@@ -10,7 +10,7 @@ export default function Admin() {
       <div className="admin__main-wrapper admin__home">
         <Link to="/countries" className="admin__regular-btn">COUNTRY OPTIONS</Link>
         <Link to="/countries" className="admin__regular-btn">ADD ADMIN</Link>
-        <Link to="/countries" className="admin__regular-btn">TICKETS</Link>
+        <Link to="/countries" className="admin__regular-btn">TICKETS <span className="admin__new-tickets"></span></Link>
       </div>
       </>
     ) : (

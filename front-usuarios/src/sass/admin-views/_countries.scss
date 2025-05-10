@@ -1,0 +1,106 @@
+@use '../globals' as g;
+
+.admin {
+    &__countries {
+        font-size: var(--fz-xs);
+
+        &-label {
+            font-weight: var(--fw-400);
+            line-height: 1;
+        }
+
+        &-add-wrapper {
+            margin-block: 1rem;
+        }
+
+        &-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.2rem;
+        }
+
+        &-input {
+            border: none;
+            padding-inline: 0.2rem;
+        }
+
+        &-search-results {
+            max-height: 40dvh;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.703);
+            padding: 0.2rem;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 10px;
+                background-color: #ffffff00;
+            }
+
+            &::-webkit-scrollbar-track { 
+                background-color: #ffffff00;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #8f9ab4; 
+                border-radius: 20px;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #747d90; 
+            }
+        }
+
+        &-search-result {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &__btn-wrapper {
+                .--mod-country-btn {
+                    padding: 0.2rem 0.6rem;
+                }
+
+                .--mod-country-btn + .--mod-country-btn {
+                    margin-left: 0.5rem;
+                }
+
+                .--mod-modify-country {
+                    background-color: var(--blue-300);
+                }
+
+                .--mod-delete-country {
+                    background-color: var(--red-300);
+                }
+
+                .--mod-result-save {
+                    background-color: var(--green-300);
+                }
+
+                .--mod-result-cancel {
+                    background-color: var(--grey-100);
+                }
+            }
+        }
+
+        &-search-result-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        &-search-flag {
+            width: 2rem;
+            object-fit: contain;
+        }
+
+        &-search-name {
+            color: var(--blue-400);
+            font-weight: var(--fw-400);
+        }
+    }
+
+    &__regular-btn.--mod-country-btn {
+        font-size: var(--fz-xs);
+    }
+}
