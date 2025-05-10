@@ -34,7 +34,7 @@ const Register = () => {
   };
 
   return (
-      <main className="main-wrapper">
+      <div className="main-wrapper">
         {error && <div className="error-message">{error}</div>}
         <form action="/" className="form" id="register" onSubmit={handleRegister}>
             <h1 className="form__title">REGISTER</h1>
@@ -52,7 +52,7 @@ const Register = () => {
             </div>   
             <button className="regular-btn">REGISTER</button> 
         </form>
-      </main>
+      </div>
   )
 }
 
