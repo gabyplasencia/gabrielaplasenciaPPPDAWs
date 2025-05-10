@@ -3,6 +3,7 @@
 .admin {
     &__countries {
         font-size: var(--fz-xs);
+        max-width: 95dvw;
 
         &-label {
             font-weight: var(--fw-400);
@@ -15,13 +16,15 @@
 
         &-input-wrapper {
             display: flex;
+            flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 0.2rem;
         }
 
         &-input {
             border: none;
-            padding-inline: 0.2rem;
+            padding-inline: 0.3rem;
+            height: 2rem;
         }
 
         &-search-results {
@@ -30,6 +33,9 @@
             background-color: rgba(255, 255, 255, 0.703);
             padding: 0.2rem;
             overflow-y: scroll;
+            @include g.media(g.$mobile , max){
+                max-height: 22dvh;
+            }
 
             &::-webkit-scrollbar {
                 width: 10px;
@@ -51,12 +57,20 @@
         }
 
         &-search-result {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+
+            @include g.media(g.$tablet){
+                margin-bottom: 0.5rem;
+            }
 
             &__btn-wrapper {
+                @include g.media(g.$tablet){
+                    max-width: unset;
+                }
                 .--mod-country-btn {
                     padding: 0.2rem 0.6rem;
                 }
@@ -85,8 +99,12 @@
 
         &-search-result-wrapper {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 0.3rem;
+            flex-wrap: wrap;
+            @include g.media(g.$tablet){
+                align-items: center;
+            }
         }
 
         &-search-flag {
@@ -97,6 +115,7 @@
         &-search-name {
             color: var(--blue-400);
             font-weight: var(--fw-400);
+            min-width: fit-content;
         }
     }
 

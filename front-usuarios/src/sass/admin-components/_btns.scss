@@ -11,7 +11,13 @@
         cursor: pointer;
     }
 
-    &__regular-btn:hover {
+    @media (hover: hover) {
+        &__regular-btn:hover {
+            background-color: var(--yellow-400);
+        }
+    }
+
+    &__regular-btn:active {
         background-color: var(--yellow-400);
     }
 }

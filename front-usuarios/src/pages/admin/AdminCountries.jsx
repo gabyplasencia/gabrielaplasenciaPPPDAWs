@@ -185,7 +185,8 @@ export default function AdminCountries() {
                       <div className="admin__countries-search-result-wrapper">
                         <img src={c.flag} alt={c.name} className="admin__countries-search-flag"/>
                         <span className="admin__countries-search-name">{c.name}</span>
-                        <span>({c.iso2}) - {c.capital}</span>
+                        <span>({c.iso2}) </span>
+                        <span>- {c.capital}</span>
                       </div>
                       <div className="admin__countries-search-result__btn-wrapper">
                         <button 
