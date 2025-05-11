@@ -2,7 +2,7 @@
 
 .game {
     position: relative;
-    padding: 0.5rem;
+    padding-block: 0.5rem;
     text-align: center;
     width: 100dvw;
     @include g.media(g.$tablet){
@@ -20,11 +20,11 @@
     &__answer-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+        gap: 0.5rem;
         margin-top: 1rem;
-        justify-items: center;
+        justify-items: center;        
         @include g.media(g.$tablet){
-            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
     }
 
@@ -37,12 +37,16 @@
         -o-border-radius: 0.5rem;
         background-color: var(--white);
         height: 6rem;
-        width: 16rem;
+        width: 11rem;
+        font-size: var(--fz-s);
         display: grid;
         place-content: center;
-        font-size: var(--fz-s);
         overflow: hidden;
         cursor: pointer;
+        @include g.media(g.$tablet){
+            height: 6rem;
+            width: 16rem;
+        }
     }
 
     @media (hover: hover) {
