@@ -5,14 +5,14 @@
     width: 95dvw;
     max-height: 70dvh;
     display: flex;
-    flex-direction: column;
+    min-height: 34rem;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 2rem;
     overflow-y: scroll;
 
     @include g.media(g.$tablet){
-        min-height: 34rem;
-        flex-direction: row;
-        flex-wrap: wrap;
+
     }
 }
 
@@ -47,14 +47,14 @@
 .ticket {
     display: flex;
     flex-direction: column;
-    width: 95dvw;
-    height: 16rem;
+    width: 24rem;
+    min-height: 20rem;
     background-color: var(--blue-100);
     font-size: var(--fz-xs);
     padding: 1rem;
     @include g.media(g.$tablet){
         width: 24rem;
-        height: 16rem;
+        height: 20rem;
     }
 
     &__header {
@@ -74,8 +74,8 @@
 
     &__btn-wrapper {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         gap: 0.2rem;
     }
 
