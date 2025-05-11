@@ -79,4 +79,28 @@
     border-radius: 0.5rem;
     font-weight: bold;
   }
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.loading-text {
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.user {
+    .logout-text,
+    .loading-text {
+    font-size: var(--fz-ml);
+    -webkit-text-stroke: 1px var(--black);
+    color: var(--white);
+    }
+}
+
+
   
