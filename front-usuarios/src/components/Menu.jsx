@@ -14,6 +14,8 @@ const Menu = () => {
     const [preview, setPreview] = useState("");
     const fileInputRef = useRef(null);
     const [scores, setScores] = useState({});
+    const [ticketDescription, setTicketDescription] = useState("");
+    const [ticketSent, setTicketSent] = useState(false);
 
     const avatars = [
         "chiken.png",
@@ -121,6 +123,21 @@ const Menu = () => {
         }
     };
 
+    const sendTicket = async () => {
+        if (!ticketDescription.trim()) return;
+        try {
+            await api.post('/tickets', { description: ticketDescription }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setTicketSent(true);
+            setTicketDescription("");
+        } catch (err) {
+            console.error("❌ Error al enviar ticket:", err);
+        }
+    };
+
     //puntajes
     useEffect(() => {
     const fetchScores = async () => {
@@ -219,7 +236,7 @@ const Menu = () => {
                     <button className="regular-btn" onClick={openAvatarModal}>
                         AVATAR
                     </button>
-                    <button className="regular-btn">HELP</button>
+                    <button className="regular-btn" onClick={() => setActiveModal('help')}>HELP</button>
                     <Link className="modal__log-out regular-btn" to="/logout">LOG OUT</Link>
                     <img className="modal__close mode__icon" 
                          src="/assets/icons/close-icon.png" 
@@ -228,6 +245,37 @@ const Menu = () => {
                          onClick={toggleMenu}/>
                 </div>
               )}
+
+              {activeModal === 'help' && (
+                <div className="modal main-wrapper">
+                    <h2 className="modal__title">NEED HELP?</h2>
+                    <textarea
+                    className="form__input --mod-help"
+                    placeholder="Describe your issue here..."
+                    value={ticketDescription}
+                    onChange={(e) => setTicketDescription(e.target.value)}
+                    />
+                    <button 
+                    className="regular-btn"
+                    onClick={sendTicket}
+                    disabled={!ticketDescription.trim()}
+                    >
+                    SEND
+                    </button>
+                    {ticketSent && <p className="success-message">✅ Your ticket has been sent!</p>}
+                    <img
+                    className="modal__close mode__icon"
+                    src="/assets/icons/close-icon.png"
+                    alt="close icon"
+                    aria-label="close help modal"
+                    onClick={() => {
+                        setActiveModal('main');
+                        setTicketDescription("");
+                        setTicketSent(false);
+                    }}
+                    />
+                </div>
+                )}
 
               {activeModal === 'scores' && (
                 <div className="modal main-wrapper">

@@ -15,6 +15,7 @@ import { useAuth } from "./context/AuthContext";
 import AdminCountries from "./pages/admin/AdminCountries";
 import Results from "./pages/users/Results";
 import AddAdmin from "./pages/auth/AddAdmin";
+import AdminTickets from "./pages/admin/AdminTickets";
 
 function App() {
   const { user, setUser } = useAuth();
@@ -101,6 +102,14 @@ function App() {
                   element={
                     <AdminRoute>
                       <AddAdmin />
+                    </AdminRoute>
+                  }
+                />
+                <Route
+                  path="/tickets"
+                  element={
+                    <AdminRoute>
+                      <AdminTickets />
                     </AdminRoute>
                   }
                 />

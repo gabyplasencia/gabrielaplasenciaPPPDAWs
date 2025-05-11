@@ -10,3 +10,29 @@
         }
     }
 }
+
+.--mod-ticket-btn-relative {
+    position: relative;
+
+    .admin__new-tickets {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(35%, -40%);
+        -webkit-transform: translate(35%, -40%);
+        -moz-transform: translate(35%, -40%);
+        -ms-transform: translate(35%, -40%);
+        -o-transform: translate(35%, -40%);
+
+        font-size: 15px;
+        height: 20px;
+        aspect-ratio: 1;
+        font-weight: var(--fw-500);
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        background-color: var(--red-300);
+    }
+}

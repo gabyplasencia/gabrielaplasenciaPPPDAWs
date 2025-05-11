@@ -1,0 +1,110 @@
+@use '../globals' as g;
+
+.tickets__container {
+    margin-top: 5rem;
+    width: 95dvw;
+    max-height: 70dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: scroll;
+
+    @include g.media(g.$tablet){
+        min-height: 34rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+.tickets__container::-webkit-scrollbar {
+    width: 10px;
+    background-color: #ffffff00;
+}
+
+.tickets__container::-webkit-scrollbar-track { 
+    background-color: #ffffff00;
+}
+
+.tickets__container::-webkit-scrollbar-thumb {
+    background: #8f9ab4; 
+    border-radius: 20px;
+}
+
+.tickets__container::-webkit-scrollbar-thumb:hover {
+    background: #747d90; 
+}
+
+/* Estilos para Firefox */
+.tickets__container {
+    scrollbar-width: thin;
+    scrollbar-color: #8f9ab4 #ffffff00;
+}
+
+.tickets__container:hover {
+    scrollbar-color: #747d90 #ffffff00;
+}
+
+.ticket {
+    display: flex;
+    flex-direction: column;
+    width: 95dvw;
+    height: 16rem;
+    background-color: var(--blue-100);
+    font-size: var(--fz-xs);
+    padding: 1rem;
+    @include g.media(g.$tablet){
+        width: 24rem;
+        height: 16rem;
+    }
+
+    &__header {
+        color: var(--blue-400);
+        text-align: center;
+        font-size: var(--fz-s);
+        font-weight: var(--fw-500)
+    }
+
+    &__description {
+        color: var(--gray-300);
+        background-color: var(--white);
+        margin-block: 1rem;
+        padding: 0.5rem;
+        height: 100%;
+    }
+
+    &__btn-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.2rem;
+    }
+
+    .--mod-ticket-btn {
+        align-self: flex-end;
+    }
+
+    .--mod-open:hover, 
+    .--mod-ready:hover,
+    .--mod-close:hover {
+        filter: brightness(80%);
+        -webkit-filter: brightness(80%);
+    }
+
+    .--mod-taken {
+        background-color: var(--grey-100);
+        cursor: auto;
+    }
+
+    .--mod-ready {
+        background-color: var(--blue-300);
+    }
+
+    .--mod-complete {
+        background-color: var(--green-400);
+        cursor: auto;
+    }
+
+    .--mod-close {
+        background-color: var(--red-300);
+    }
+}

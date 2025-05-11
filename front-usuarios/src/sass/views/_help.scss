@@ -1,0 +1,7 @@
+@use '../globals' as g;
+
+.form__input.--mod-help {
+    resize: vertical;
+    width: 100%;
+    height: 10rem;
+}
