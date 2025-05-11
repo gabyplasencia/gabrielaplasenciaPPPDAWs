@@ -106,7 +106,9 @@ const FlagsInfinity = () => {
 
     return (
         <div className="main-wrapper game" id="flags-infinity">
-
+            <div className="game__progress">
+              <p>Answered: {correctCount + incorrectCount} / {countries.length}</p>
+            </div>
             {currentCountry && (
                 <>
                     <h1 className="game__country">{currentCountry.name}</h1>
