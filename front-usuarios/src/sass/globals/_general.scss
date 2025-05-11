@@ -75,10 +75,34 @@
     color: #d8000c;
     border: 1px solid #d8000c;
     padding: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem;
     border-radius: 0.5rem;
     font-weight: bold;
-  }
+}
+
+.success-message {
+    background-color: white;
+    color: rgb(10, 78, 13);
+    border: 2px solid black;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+}
+
+.admin {
+    .error-message {
+        background-color: transparent;
+        color: #91030a;
+        border: none;
+    }
+
+    .success-message {
+        background-color: transparent;
+        color: rgb(10, 78, 13);
+        border: none;
+    }
+}
 
 @keyframes pulse {
   0%, 100% {

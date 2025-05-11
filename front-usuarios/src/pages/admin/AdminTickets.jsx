@@ -84,13 +84,13 @@ export default function AdminTickets() {
   }
 
   return (
-    <>
-      <AdminMenu />
-      <div className="tickets__container">
-        {tickets.length === 0 && !loading && (
-            <p className="no-tickets">No tickets at the moment.</p>
-        )}
-        {tickets
+  <>
+    <AdminMenu />
+    <div className="tickets__container">
+      {tickets.length === 0 && !loading && (
+        <p className="no-tickets">No tickets at the moment.</p>
+      )}
+      {tickets
         .filter(ticket => !closedTickets.includes(ticket.id))
         .map(ticket => (
           <div className="ticket" key={ticket.id}>
@@ -98,6 +98,7 @@ export default function AdminTickets() {
               TICKET #<span className="ticket__id">{ticket.id}</span>
             </h2>
             <p className="ticket__description">{ticket.description}</p>
+
             {ticket.status === "complete" ? (
               <div className="ticket__btn-wrapper">
                 <span className={`admin__regular-btn --mod-ticket-btn --mod-${ticket.status}`}>
@@ -112,18 +113,26 @@ export default function AdminTickets() {
               </div>
             ) : ticket.status === "ready" && ticket.taken_by === user.id ? (
               <button
-                className={`admin__regular-btn --mod-ticket-btn --mod-${ticket.status}`}
+                className={`admin__regular-btn --mod-ticket-btn --mod-${ticket.status} --mod-taken-ready`}
                 onClick={() => updateStatus(ticket.id, "complete")}
               >
                 Mark as complete
               </button>
             ) : (ticket.status === "taken" || ticket.status === "ready") && ticket.taken_by !== user.id ? (
-              <p className={`admin__regular-btn --mod-ticket-btn --mod-${ticket.status}`}>
-                Taken
+              <p
+                className={`admin__regular-btn --mod-ticket-btn ${
+                  ticket.status === "ready" ? "--mod-ready-taken" : "--mod-taken"
+                }`}
+              >
+                {ticket.status === "ready" ? "Ready" : "Taken"}
               </p>
             ) : (
               <button
-                className={`admin__regular-btn --mod-ticket-btn --mod-${ticket.status}`}
+                className={`admin__regular-btn --mod-ticket-btn --mod-${ticket.status} ${
+                  (ticket.status === "taken" || ticket.status === "ready") && ticket.taken_by === user.id
+                    ? "--mod-taken-ready"
+                    : ""
+                }`}
                 onClick={() => updateStatus(ticket.id, getNextStatus(ticket.status))}
               >
                 {getStatusLabel(ticket.status)}
@@ -131,8 +140,8 @@ export default function AdminTickets() {
             )}
           </div>
         ))}
-      </div>
-    </>
+    </div>
+  </>
   );
 }
 

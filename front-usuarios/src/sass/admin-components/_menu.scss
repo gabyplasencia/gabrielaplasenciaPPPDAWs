@@ -24,7 +24,8 @@
         }
 
         &-item:hover {
-            opacity: 0.95;
+            filter: brightness(80%);
+            -webkit-filter: brightness(80%);
         }
 
         &-item.--mod-home {

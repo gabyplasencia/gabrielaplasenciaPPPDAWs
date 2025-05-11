@@ -10,7 +10,7 @@ export const AudioProvider = ({ children }) => {
     useEffect(() => {
         audioRef.current = new Audio("/assets/background/music.mp3");
         audioRef.current.loop = true;
-        audioRef.current.volume = 0.4;
+        audioRef.current.volume = 0.1;
 
         const savedState = localStorage.getItem('musicPlaying') === 'true';
         if (savedState) {

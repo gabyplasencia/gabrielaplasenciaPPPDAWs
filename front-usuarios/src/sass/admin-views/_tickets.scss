@@ -83,9 +83,9 @@
         align-self: flex-end;
     }
 
-    .--mod-open:hover, 
     .--mod-ready:hover,
-    .--mod-close:hover {
+    .--mod-close:hover,
+    .--mod-taken-ready:hover {
         filter: brightness(80%);
         -webkit-filter: brightness(80%);
     }
@@ -93,6 +93,11 @@
     .--mod-taken {
         background-color: var(--grey-100);
         cursor: auto;
+    }
+
+    .--mod-taken-ready {
+        background-color: var(--green-300);
+        cursor: pointer;
     }
 
     .--mod-ready {
