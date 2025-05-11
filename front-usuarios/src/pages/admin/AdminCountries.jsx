@@ -33,7 +33,7 @@ export default function AdminCountries() {
         },
       });
       setEditingCountry(null);
-      handleSearch(); // Refresh the current search
+      handleSearch(); 
     } catch (err) {
       alert("Error modifying country");
       console.error(err);
@@ -68,7 +68,6 @@ export default function AdminCountries() {
   };
 
   useEffect(() => {
-    // Add a small delay to avoid making too many requests while typing
     const timer = setTimeout(() => {
       handleSearch();
     }, 300);
@@ -83,7 +82,7 @@ export default function AdminCountries() {
           Authorization: `Bearer ${token}`,
         },
       });
-      handleSearch(); // Refresh with current search
+      handleSearch();
     }
   };
 
@@ -100,7 +99,7 @@ export default function AdminCountries() {
         },
       });
       setForm({ name: "", capital: "", iso2: "" });
-      handleSearch(); // Refresh with current search
+      handleSearch(); 
     } catch (err) {
       alert("Error adding country");
       console.error(err);

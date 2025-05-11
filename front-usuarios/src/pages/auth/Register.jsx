@@ -9,7 +9,6 @@ const Register = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // Si ya está logueado, redirigir
   useEffect(() => {
     if (user) {
       navigate(user.is_admin ? "/admin" : "/dashboard");

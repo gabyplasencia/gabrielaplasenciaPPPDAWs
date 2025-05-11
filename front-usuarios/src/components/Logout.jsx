@@ -25,12 +25,12 @@ export default function Logout() {
         console.warn("Token inválido o ya expirado. Continuando logout...");
       }
 
-      logout(); // limpiamos contexto y localStorage
+      logout();
       navigate("/");
     };
 
     doLogout();
   }, [navigate, logout]);
 
-  return <p>Cerrando sesión...</p>;
+  return <p className="logout-text">Loging out...</p>;
 }

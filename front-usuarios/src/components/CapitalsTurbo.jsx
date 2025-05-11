@@ -13,7 +13,7 @@ const FlagsTurbo = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [usedCountries, setUsedCountries] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(45); // 45 seconds initial time
+  const [timeLeft, setTimeLeft] = useState(45);
   const progressRef = useRef(null);
   const [showBonus, setShowBonus] = useState(false);
   const [randomStyle, setRandomStyle] = useState({});
@@ -43,7 +43,7 @@ const FlagsTurbo = () => {
         document.documentElement.style.setProperty('--bg-wrong', 'rgb(255, 194, 194)');
     }, []);
 
-            // Game end handler
+      
       const endGame = useCallback(() => {
         navigate('/results', {
           state: {
@@ -55,34 +55,28 @@ const FlagsTurbo = () => {
         });
       }, [correctCount, incorrectCount, navigate]);
       
-          // Generate new round of questions
       const generateRound = useCallback(() => {
           if (countries.length === 0) return;
-          
-          // Filter out already used countries
+
           const availableCountries = countries.filter(
               country => !usedCountries.includes(country.id)
           );
           
           if (availableCountries.length === 0) {
-              // Reset if all countries have been used
               setUsedCountries([]);
               generateRound();
               return;
           }
           
-          // Select random correct country
           const correctCountry = availableCountries[
               Math.floor(Math.random() * availableCountries.length)
           ];
           
-          // Select 3 random incorrect countries
           const incorrectCountries = countries
               .filter(country => country.id !== correctCountry.id)
               .sort(() => 0.5 - Math.random())
               .slice(0, 3);
           
-          // Combine and shuffle options
           const allOptions = [correctCountry, ...incorrectCountries]
               .sort(() => 0.5 - Math.random());
           
@@ -91,7 +85,6 @@ const FlagsTurbo = () => {
           setUsedCountries(prev => [...prev, correctCountry.id]);
       }, [countries, usedCountries]);
 
-    // Start new round when countries load or when needed
     useEffect(() => {
         if (countries.length > 0 && (usedCountries.length === 0 || !currentCountry)) {
             generateRound();
@@ -100,7 +93,6 @@ const FlagsTurbo = () => {
 
     useEffect(() => {
       if (timeLeft <= 0) {
-        // Game over logic
         endGame();
         return;
       }
@@ -112,7 +104,6 @@ const FlagsTurbo = () => {
       return () => clearInterval(timer);
     }, [timeLeft, endGame]);
   
-    // Update progress bar
     useEffect(() => {
       if (progressRef.current) {
         const percentage = (timeLeft / 45) * 100;
@@ -120,21 +111,19 @@ const FlagsTurbo = () => {
       }
     }, [timeLeft]);
 
-    // Handle answer selection
     const handleAnswer = (selectedCountry) => {
       setSelectedAnswer(selectedCountry.id);
       
       if (selectedCountry.id === currentCountry.id) {
         setIsCorrect(true);
         setCorrectCount(prev => prev + 1);
-        setTimeLeft(prev => Math.min(45, prev + 1)); // Add 1 second, max 45
+        setTimeLeft(prev => Math.min(45, prev + 1)); 
 
-            // Generate random position and rotation
         setRandomStyle({
-          right: `${4 + Math.random() * 4}rem`,  // Random between 4-8rem
-          top: `${0.5 + Math.random() * 1}rem`,   // Random between 0.5-1.5rem
-          transform: `rotate(${-15 + Math.random() * 30}deg)`, // Random between -15 to +15 degrees
-          opacity: 0 // Start invisible
+          right: `${4 + Math.random() * 4}rem`,
+          top: `${0.5 + Math.random() * 1}rem`, 
+          transform: `rotate(${-15 + Math.random() * 30}deg)`, 
+          opacity: 0 
         });
         
         setShowBonus(true);

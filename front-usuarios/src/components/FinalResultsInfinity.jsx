@@ -62,7 +62,6 @@ const FinalResultsInfinity = ({ correct, incorrect, gameMode, category }) => {
     );
 };
 
-// Add prop-types validation
 FinalResultsInfinity.propTypes = {
   correct: PropTypes.number.isRequired,
   incorrect: PropTypes.number.isRequired,

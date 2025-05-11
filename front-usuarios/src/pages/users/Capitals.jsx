@@ -5,8 +5,8 @@ import CapitalsTurbo from "../../components/CapitalsTurbo";
 import Menu from "../../components/Menu";
 
 const Capitals = () => {
-    const [game, setGame] = useState(0); // Default to 0, meaning no game is rendered
-    const [showMenu, setShowMenu] = useState(true); // Control visibility of the menu
+    const [game, setGame] = useState(0);
+    const [showMenu, setShowMenu] = useState(true);
     const location = useLocation();
 
     useEffect(() => {

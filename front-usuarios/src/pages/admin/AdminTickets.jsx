@@ -80,7 +80,7 @@ export default function AdminTickets() {
   };
 
   if (loading) {
-    return <div className="loading-text">Loading Tickets...</div>;
+    return <div className="loading-text --mod-admin">Loading Tickets...</div>;
   }
 
   return (

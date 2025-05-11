@@ -67,9 +67,8 @@ const Menu = () => {
         const file = e.target.files[0];
         if (file) {
             setCustomAvatar(file);
-            setSelectedAvatar(""); // Deseleccionar avatar predeterminado
+            setSelectedAvatar("");
             
-            // Crear vista previa
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPreview(reader.result);
@@ -138,7 +137,6 @@ const Menu = () => {
         }
     };
 
-    //puntajes
     useEffect(() => {
     const fetchScores = async () => {
         try {
@@ -166,7 +164,6 @@ const Menu = () => {
         }
     }, [selectedAvatar]);
 
-    // Update selectedAvatar when user changes or modal opens
     useEffect(() => {
         if (activeModal === 'avatar') {
             setSelectedAvatar(user?.avatar || "");
@@ -175,20 +172,18 @@ const Menu = () => {
 
     if (!user) return null;
     const getAvatarPath = (avatar) => {
-        if (!avatar) return '/assets/avatars/kitty.png'; // Avatar por defecto
+        if (!avatar) return '/assets/avatars/kitty.png'; 
         
-        // Si es un avatar personalizado (viene como 'avatars/filename.ext')
         if (avatar.startsWith('avatars/')) {
             const filename = avatar.replace('avatars/', '');
             return `http://127.0.0.1:8000/storage/avatars/${filename}`;
         }
         
-        // Si es un avatar predeterminado
         if (avatars.includes(avatar)) {
             return `/assets/avatars/${avatar}`;
         }
         
-        return '/assets/avatars/kitty.png'; // Fallback
+        return '/assets/avatars/kitty.png'; 
     };
     
     const avatarPath = user?.avatar_url || getAvatarPath(user?.avatar);
@@ -262,7 +257,7 @@ const Menu = () => {
                     >
                     SEND
                     </button>
-                    {ticketSent && <p className="success-message">✅ Your ticket has been sent!</p>}
+                    {ticketSent && <p className="success-message">Your ticket has been sent!</p>}
                     <img
                     className="modal__close mode__icon"
                     src="/assets/icons/close-icon.png"

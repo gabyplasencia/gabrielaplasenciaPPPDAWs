@@ -5,10 +5,10 @@ import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [error, setError] = useState(""); // Nuevo estado para mensajes
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login, user } = useAuth();
-  const [loading, setLoading] = useState(false); // NUEVO
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user && !user.is_admin) {
@@ -22,7 +22,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // limpia error anterior
+    setError("");
     setLoading(true);
     try {
       const res = await api.post("/auth/login", form);
@@ -47,7 +47,7 @@ const Login = () => {
         setError("Ups there was an error trying to login.");
       } 
     } finally {
-      setLoading(false); // TERMINA EL LOADING
+      setLoading(false);
     }
   };
 

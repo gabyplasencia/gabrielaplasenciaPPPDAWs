@@ -8,12 +8,10 @@ export const AudioProvider = ({ children }) => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-        // Initialize audio only once
         audioRef.current = new Audio("/assets/background/music.mp3");
         audioRef.current.loop = true;
         audioRef.current.volume = 0.4;
 
-        // Try to restore playback state from localStorage
         const savedState = localStorage.getItem('musicPlaying') === 'true';
         if (savedState) {
             const playPromise = audioRef.current.play();
@@ -23,14 +21,12 @@ export const AudioProvider = ({ children }) => {
                     .then(() => setIsPlaying(true))
                     .catch(e => {
                         console.log("Autoplay prevented:", e);
-                        // Handle browser autoplay policies
                         document.body.addEventListener('click', handleFirstInteraction, { once: true });
                     });
             }
         }
 
         return () => {
-            // Cleanup - pause audio and save state
             if (audioRef.current) {
                 localStorage.setItem('musicPlaying', !audioRef.current.paused);
                 audioRef.current.pause();

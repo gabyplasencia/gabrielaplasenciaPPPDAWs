@@ -53,12 +53,12 @@ const LoginAdmin = () => {
         setError("INVALID CREDENTIALS");
       }
     } finally {
-      setLoading(false); // TERMINA EL LOADING
+      setLoading(false);
     }
   };
 
   if (loading) {
-    return <div className="loading-text">Loading...</div>;
+    return <div className="loading-text --mod-admin">Loading...</div>;
   }
 
   return (

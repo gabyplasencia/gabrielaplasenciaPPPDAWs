@@ -50,33 +50,27 @@ const FlagsInfinity = () => {
         });
       }, [correctCount, incorrectCount, navigate]);
       
-          // Generate new round of questions
-    const generateRound = useCallback(() => {
+        const generateRound = useCallback(() => {
         if (countries.length === 0) return;
 
-          // Filter out already used countries
         const availableCountries = countries.filter(
             country => !usedCountries.includes(country.id)
         );
 
         if (availableCountries.length === 0) {
-          // End game instead of resetting when all countries are used
           endGame();
           return;
         }
         
-        // Select random correct country
         const correctCountry = availableCountries[
             Math.floor(Math.random() * availableCountries.length)
         ];
         
-        // Select 3 random incorrect countries
         const incorrectCountries = countries
             .filter(country => country.id !== correctCountry.id)
             .sort(() => 0.5 - Math.random())
             .slice(0, 3);
         
-        // Combine and shuffle options
         const allOptions = [correctCountry, ...incorrectCountries]
             .sort(() => 0.5 - Math.random());
         
@@ -85,23 +79,21 @@ const FlagsInfinity = () => {
         setUsedCountries(prev => [...prev, correctCountry.id]);
     }, [countries, usedCountries, endGame]);
 
-    // Start new round when countries load or when needed
     useEffect(() => {
         if (countries.length > 0 && (usedCountries.length === 0 || !currentCountry)) {
             generateRound();
         }
     }, [countries, generateRound, currentCountry, usedCountries]);
 
-    // Handle answer selection
     const handleAnswer = (selectedCountry) => {
       setSelectedAnswer(selectedCountry.id);
       
       if (selectedCountry.id === currentCountry.id) {
         setIsCorrect(true);
-        setCorrectCount(prev => prev + 1); // increment correct answers
+        setCorrectCount(prev => prev + 1);
       } else {
         setIsCorrect(false);
-        setIncorrectCount(prev => prev + 1); // increment incorrect answers
+        setIncorrectCount(prev => prev + 1); 
       }
       
       setTimeout(() => {

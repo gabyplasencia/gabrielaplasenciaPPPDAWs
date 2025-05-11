@@ -39,7 +39,7 @@ export default function Admin() {
       </div>
     </>
   ) : (
-    <p>Loading...</p>
+    <p className="loading-text --mod-admin">Loading...</p>
   );
 }
 
