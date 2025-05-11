@@ -82,5 +82,27 @@
             max-width: 16rem;
         }
     }
+
+    &__progress {
+        position: absolute;
+        top: -20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--light-yellow);
+        font-size: var(--fz-xs);
+        padding: 0.5rem;
+        border-radius: 8px;
+        -webkit-border-radius:8px;
+        -moz-border-radius:8px;
+        -ms-border-radius:8px;
+        -o-border-radius:8px;
+        color: var(--black);
+        border: 3px solid var(--black);
+        @include g.media(g.$desktop){
+            font-size: var(--fz-s);
+            top: 50%;
+            left: 115%;
+        }
+    }
 }
 
