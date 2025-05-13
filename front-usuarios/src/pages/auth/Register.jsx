@@ -8,6 +8,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -22,16 +23,23 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(""); 
+    setLoading(true);
     try {
       await api.post("/auth/register", form);
-      alert("Register successful. Please log in.");
+      alert("Register successful. Please verify your email.");
       navigate("/");
     } catch (err) {
       console.error(err);
       setError("Ups there was an error trying to register.");
+    }finally {
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return <div className="loading-text">Loading...</div>;
+  }
+  
   return (
       <div className="main-wrapper">
         {error && <div className="error-message">{error}</div>}
